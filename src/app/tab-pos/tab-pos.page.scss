@@ -1,16 +1,20 @@
 .clickable {
-pointer-events: auto !important;
+  pointer-events: auto !important;
 }
 
 .text-center {
   text-align: center;
 }
 
-@media screen and (min-width: 720px) {
+.ion-margin-top {
+  font-size: 1.2em;
+  color: #000;
+}
 
+@media screen and (min-width: 720px) {
   .product-content {
-    width:65%;
-    float:left;
+    width: 65%;
+    float: left;
   }
 
   .product-content .list {
@@ -25,9 +29,9 @@ pointer-events: auto !important;
   .product-content .grid .item-product {
     height: 220px;
     width: 24%;
-    margin:0.5%;
-    float:left;
-    border:1px solid #f5f5f5;
+    margin: 0.5%;
+    float: left;
+    border: 1px solid #f5f5f5;
     cursor: pointer;
   }
 
@@ -38,42 +42,41 @@ pointer-events: auto !important;
   }
 
   .product-content .grid .item-product .label {
-    padding:10px;
+    padding: 10px;
     text-align: center;
     font-size: 70%;
   }
 
   .product-content .grid .item-product .grid-text-avatar {
-    padding:20px;
+    padding: 20px;
     padding-top: 40px;
     font-size: 50px;
-    color:#666;
+    color: #666;
     text-align: center;
   }
 
   .side-cart {
     background-color: #f5f5f5;
-    width:35%;
-    border-left:2px solid #ddd;
-    height:100%;
+    width: 35%;
+    border-left: 2px solid #ddd;
+    height: 100%;
     position: fixed;
-    right:0;
-    top:0;
-    bottom:0;
-    overflow:scroll;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    overflow: scroll;
   }
 
   .side-cart .item-list {
-    height:65%;
+    height: 65%;
     overflow: scroll;
   }
 
   .side-cart-footer {
-
-    width:100%;
+    width: 100%;
     // position: fixed;
-    right:0;
-    bottom:0;
+    right: 0;
+    bottom: 0;
   }
 
   .phone-mode-footer {
@@ -91,17 +94,16 @@ pointer-events: auto !important;
   }
 
   .search-pos {
-    margin-top:10px;
-    margin-left:5px;
-    width:300px;
+    margin-top: 10px;
+    margin-left: 5px;
+    width: 300px;
   }
 }
 
 @media screen and (max-width: 719px) {
-
   .product-content {
-    width:100%;
-    float:none;
+    width: 100%;
+    float: none;
   }
 
   .product-content .list {
@@ -123,7 +125,7 @@ pointer-events: auto !important;
   }
 
   .type-order-tab {
-    visibility:hidden;
+    visibility: hidden;
     display: none;
   }
 
@@ -133,9 +135,8 @@ pointer-events: auto !important;
   }
 
   .search-pos {
-    margin-top:10px;
-    margin-left:5px;
-    width:100%;
+    margin-top: 10px;
+    margin-left: 5px;
+    width: 100%;
   }
-
 }

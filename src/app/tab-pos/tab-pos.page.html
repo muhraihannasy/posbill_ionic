@@ -243,9 +243,10 @@
           {{item.product.name}}<br />
           <ion-text color="primary"
             >{{global.currency(item.product.price)}}</ion-text
-          ><br />
-          <small *ngIf="item.product.track_stock == 1"
-            >Stok: {{item.stock}}</small
+          >
+          <br /><br />
+          <ion-note *ngIf="item.product.track_stock == 1" class="ion-margin-top"
+            >Stok: {{item.stock}}</ion-note
           >
         </div>
       </div>

@@ -43,6 +43,7 @@ export class TabDashboardPage {
   };
 
   auth: any;
+  baseUrl = this.global.domain;
   offline: boolean = false;
   showContent: boolean = false;
 
@@ -59,13 +60,15 @@ export class TabDashboardPage {
   summary_month_price: number = 0;
   summary_month_items: number = 0;
 
-  date: any = "";
+  // Information
+  informations: any = [];
+
+  dateNow: any = "";
+  monthNow: any = "";
 
   notificationContent: any = {
     notification: { data: { entity_name: "", id: "" } },
   };
-
-  optionDate: any = "";
 
   constructor(
     private nativePageTransitions: NativePageTransitions,
@@ -156,15 +159,19 @@ export class TabDashboardPage {
       this.getAmountBooking();
       this.getAmountOrder();
       this.getOrderSummary();
+      this.getDataInformation();
     });
 
-    this.optionDate = { weekday: "long", year: "numeric" };
-    const date = new Date(); // Tahun: 2023, Bulan: 4 (mulai dari 0), Tanggal: 22
+    const optionDateNow = { year: "numeric", weekday: "long" };
+    const formattedDateNow = this.global.getNameDate(new Date(), optionDateNow);
+    const explodeDateNow = formattedDateNow.split(" ");
 
-    const dateFormatter = new Intl.DateTimeFormat("id-ID", this.optionDate);
-    const formattedDate = dateFormatter.format(date);
+    const optionMonth = { year: "numeric", month: "long" };
+    const formattedMonth = this.global.getNameDate(new Date(), optionMonth);
 
-    this.date = formattedDate;
+    console.log(explodeDateNow);
+    this.dateNow = explodeDateNow[1] + " " + explodeDateNow[0];
+    this.monthNow = formattedMonth;
   }
 
   getDataCompany() {
@@ -192,6 +199,24 @@ export class TabDashboardPage {
           console.log(error);
         }
       );
+  }
+
+  getDataInformation() {
+    var reqHeader = new HttpHeaders({
+      "Content-Type": "application/json",
+      Authorization: "Bearer " + this.auth.token,
+    });
+
+    let options = { headers: reqHeader };
+    this.http.get(this.global.base_url + "auth/information", options).subscribe(
+      (data: any) => {
+        this.informations = data?.information;
+        console.log(data);
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
   }
 
   getAmountOrder() {

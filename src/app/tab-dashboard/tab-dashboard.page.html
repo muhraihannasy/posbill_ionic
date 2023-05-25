@@ -29,7 +29,7 @@
       <ion-grid>
         <ion-row>
           <ion-col size="6">
-            <h6>Hari ini {{ date }}</h6>
+            <h6>Hari ini {{ dateNow }}</h6>
             <div style="border-top: 1px solid #ccc; margin: 7px 0px"></div>
             <h2>
               <ion-text color="primary">{{ summary_today_price }}</ion-text>
@@ -39,7 +39,7 @@
             </h5>
           </ion-col>
           <ion-col size="6">
-            <h6>Bulan ini (Mei 2022)</h6>
+            <h6>Bulan ini ({{ monthNow }})</h6>
             <div style="border-top: 1px solid #ccc; margin: 7px 0px"></div>
             <h2>
               <ion-text color="primary">{{ summary_month_price }}</ion-text>
@@ -88,19 +88,10 @@
 
   <ion-slides pager="true" [options]="slideOpts">
     <ion-slide
+      *ngFor="let item of informations"
       [routerLink]="['/information-detail/4daf2177-a4ce-411e-8485-47f53395c51b']"
     >
-      <img src="https://via.placeholder.com/800x400" />
-    </ion-slide>
-    <ion-slide
-      [routerLink]="['/information-detail/4daf2177-a4ce-411e-8485-47f53395c51b']"
-    >
-      <img src="https://via.placeholder.com/800x400" />
-    </ion-slide>
-    <ion-slide
-      [routerLink]="['/information-detail/4daf2177-a4ce-411e-8485-47f53395c51b']"
-    >
-      <img src="https://via.placeholder.com/800x400" />
+      <img src="{{ baseUrl + item.image}}" />
     </ion-slide>
   </ion-slides>
 </ion-content>
