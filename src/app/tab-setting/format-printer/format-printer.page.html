@@ -1,0 +1,32 @@
+<ion-header mode="ios">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-buttons slot="start">
+        <ion-button fill="link" [routerLink]="['/tabs/tab-setting']"><ion-icon name="arrow-back-outline"></ion-icon></ion-button>
+      </ion-buttons>
+    </ion-buttons>
+    <ion-title>Format nota dan printer</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content mode="ios">
+
+  <ion-card [routerLink]="['/setting-format']"  >
+    <ion-card-header>
+      <ion-card-subtitle color="primary">Format nota</ion-card-subtitle>
+    </ion-card-header>
+    <ion-card-content>
+      Atur format nota yang akan ditampilkan pada nota penjualan.
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card  [routerLink]="['/setting-printer']" >
+    <ion-card-header>
+      <ion-card-subtitle color="primary">Printer</ion-card-subtitle>
+    </ion-card-header>
+    <ion-card-content>
+      Atur printer yang akan digunakan untuk mencetak nota penjualan.
+    </ion-card-content>
+  </ion-card>
+
+</ion-content>

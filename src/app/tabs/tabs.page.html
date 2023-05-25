@@ -1,0 +1,35 @@
+<ion-tabs style="background:none;">
+  <div class="tab-div">
+  <ion-tab-bar slot="bottom" class="tab-pane">
+    <ion-tab-button tab="tab-dashboard" [routerLink]="['/tabs/tab-dashboard']">
+      <ion-icon name="home"></ion-icon>
+      <ion-label>Dasbor</ion-label>
+    </ion-tab-button>
+
+    <ion-tab-button tab="tab-pos" [routerLink]="['/tabs/tab-pos']">
+      <ion-icon name="calculator-outline"></ion-icon>
+      <ion-label>POS</ion-label>
+    </ion-tab-button>
+
+    <ion-tab-button tab="tab-order">
+      <ion-icon name="list-outline"></ion-icon>
+      <ion-label>Order</ion-label>
+    </ion-tab-button>
+
+    <ion-tab-button tab="tab-report" *ngIf="user.level=='Owner' || user.level=='Admin'">
+      <ion-icon name="bar-chart-outline"></ion-icon>
+      <ion-label>Laporan</ion-label>
+    </ion-tab-button>
+
+    <ion-tab-button tab="tab-catalog" *ngIf="user.level=='Owner' || user.level=='Admin'">
+      <ion-icon name="grid-outline"></ion-icon>
+      <ion-label>Katalog</ion-label>
+    </ion-tab-button>
+
+    <ion-tab-button tab="tab-setting">
+      <ion-icon name="settings-outline"></ion-icon>
+      <ion-label>Akun</ion-label>
+    </ion-tab-button>
+  </ion-tab-bar>
+</div>
+</ion-tabs>

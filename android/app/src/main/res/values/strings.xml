@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">POSbill</string>
+    <string name="title_activity_main">POSbill</string>
+    <string name="package_name">app.posbill.id</string>
+    <string name="custom_url_scheme">app.posbill.id</string>
+</resources>

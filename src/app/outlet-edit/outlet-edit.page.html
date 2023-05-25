@@ -1,0 +1,31 @@
+<ion-header mode="ios">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button fill="link" [routerLink]="['/outlet']"><ion-icon name="arrow-back-outline"></ion-icon></ion-button>
+    </ion-buttons>
+    <ion-title>Edit outlet</ion-title>
+    <ion-buttons slot="end">
+      <ion-button fill="link" color="danger" (click)="deleteConfirm()" ><ion-icon name="trash-outline" color="danger"></ion-icon></ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content mode="ios" class="ion-padding">
+
+  <ion-item>
+    <ion-label position="stacked">Nama*</ion-label>
+    <ion-input type="text" [(ngModel)]="outlet.name"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label position="stacked">Alamat*</ion-label>
+    <ion-textarea [(ngModel)]="outlet.address"></ion-textarea>
+  </ion-item>
+  <ion-item>
+    <ion-label position="stacked">Telepon</ion-label>
+    <ion-input type="tel" [(ngModel)]="outlet.phone"></ion-input>
+  </ion-item>
+
+</ion-content>
+<ion-footer class="ion-padding" mode="ios">
+    <ion-button expand="block" (click)="process()">Simpan</ion-button>
+</ion-footer>

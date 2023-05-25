@@ -1,0 +1,46 @@
+<ion-header mode="ios">
+  <ion-toolbar>
+    <ion-header>
+      <ion-toolbar>
+        <ion-buttons
+          slot="start"
+          (click)="goBackToTab()"
+          style="cursor: pointer; font-size: 1.5em"
+        >
+          <ion-icon name="arrow-back-outline"></ion-icon>
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-header>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content mode="ios">
+  <div style="margin-top: 200px; text-align: center" *ngIf="!showContent">
+    <ion-spinner name="crescent"></ion-spinner>
+  </div>
+
+  <div class="article-container">
+    <h2>How To Become A Self Taught Progammer</h2>
+
+    <img
+      src="https://via.placeholder.com/800x400"
+      alt="Gambar Artikel"
+      class="article-image"
+    />
+    <div class="article-details">
+      <p class="article-content">
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi, tenetur
+        distinctio porro sed adipisci est, magni id quis temporibus ipsa sunt
+        perspiciatis? Magnam veniam reprehenderit fugit cupiditate, facere ipsam
+        aliquid, sed fugiat sapiente natus ratione corrupti, quae culpa amet.
+        Dicta ad dolorem a recusandae consequatur sit ducimus velit explicabo.
+        Cupiditate saepe assumenda quia, sint, atque blanditiis a facere illo
+        aut error harum aliquid voluptate voluptates nostrum quas veniam,
+        possimus repellat? Soluta unde cupiditate modi, ipsa, culpa non itaque
+        saepe animi, autem quibusdam totam recusandae dolorem magni? Possimus
+        odio eaque minima aut, itaque corporis ab ea cum, rerum accusamus
+        reiciendis aperiam?
+      </p>
+    </div>
+  </div>
+</ion-content>

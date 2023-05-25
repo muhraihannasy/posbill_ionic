@@ -1,0 +1,38 @@
+<ion-header mode="ios">
+
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button fill="link" [routerLink]="['/tabs/tab-catalog']"><ion-icon name="arrow-back-outline"></ion-icon></ion-button>
+    </ion-buttons>
+    <ion-title>Kategori</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content mode="ios">
+
+  <ion-list>
+    <ion-item-sliding *ngFor="let item of category;index as i;">
+    <ion-item [routerLink]="['/catalog-category-edit/'+item.id]" button detail="false">
+      <ion-avatar slot="start">
+        <div class="text-avatar-category">
+          {{item.name.charAt(0).toUpperCase()}}
+        </div>
+      </ion-avatar>
+    <ion-label>{{item.name}}
+    </ion-label>
+    </ion-item>
+    <!-- <ion-item-options side="end">
+      <ion-item-option color="danger"  (click)="deleteCategory(i)"><ion-icon name="trash-outline" slot="start"></ion-icon></ion-item-option>
+    </ion-item-options> -->
+
+    </ion-item-sliding>
+
+
+  </ion-list>
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+   <ion-fab-button [routerLink]="['/catalog-category-add']">
+     <ion-icon name="add-outline"></ion-icon>
+   </ion-fab-button>
+ </ion-fab>
+
+</ion-content>

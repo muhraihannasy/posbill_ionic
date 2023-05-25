@@ -1,0 +1,61 @@
+<?xml version='1.0' encoding='utf-8'?>
+<widget version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+  <access origin="*" />
+  
+  <feature name="NativePageTransitions">
+    <param name="android-package" value="com.telerik.plugins.nativepagetransitions.NativePageTransitions"/>
+    <param name="onload" value="true"/>
+  </feature>
+
+  <feature name="Base64ToGallery">
+    <param name="android-package" value="it.nexxa.base64ToGallery.Base64ToGallery"/>
+  </feature>
+
+  <feature name="Clipboard">
+    <param name="android-package" value="com.verso.cordova.clipboard.Clipboard"/>
+  </feature>
+
+  <feature name="PDFService">
+    <param name="android-package" value="com.pdf.generator.PDFGenerator"/>
+  </feature>
+
+  <feature name="BluetoothSerial">
+    <param name="android-package" value="com.megster.cordova.BluetoothSerial"/>
+  </feature>
+
+  <feature name="DatecsPrinter">
+    <param name="android-package" value="com.giorgiofellipe.datecsprinter.DatecsPrinter"/>
+  </feature>
+
+  <feature name="File">
+    <param name="android-package" value="org.apache.cordova.file.FileUtils"/>
+    <param name="onload" value="true"/>
+  </feature>
+
+  <feature name="FileTransfer">
+    <param name="android-package" value="org.apache.cordova.filetransfer.FileTransfer"/>
+  </feature>
+
+  <feature name="GooglePlus">
+    <param name="android-package" value="nl.xservices.plugins.GooglePlus"/>
+    <param name="onload" value="true"/>
+  </feature>
+
+  <feature name="InAppBrowser">
+    <param name="android-package" value="org.apache.cordova.inappbrowser.InAppBrowser"/>
+  </feature>
+
+  <feature name="NativeAudio">
+    <param name="android-package" value="com.rjfun.cordova.plugin.nativeaudio.NativeAudio"/>
+  </feature>
+
+  <feature name="Printer">
+    <param name="android-package" value="de.appplant.cordova.plugin.printer.Printer"/>
+  </feature>
+
+  <feature name="BarcodeScanner">
+    <param name="android-package" value="com.phonegap.plugins.barcodescanner.BarcodeScanner"/>
+  </feature>
+
+  
+</widget>

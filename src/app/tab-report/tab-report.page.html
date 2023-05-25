@@ -1,0 +1,146 @@
+<ion-header mode="ios">
+  <ion-item lines="full" color="light">
+    <ion-label>Pilih outlet</ion-label>
+    <ion-select placeholder="Semua outlet" interface="action-sheet" [(ngModel)]="outlet_id" (ionChange)="changeEvent()">
+      <ion-select-option value="All">Semua outlet</ion-select-option>
+      <ion-select-option *ngFor="let item of outlet" value="{{item.outlet.id}}">{{item.outlet.name}}</ion-select-option>
+    </ion-select>
+  </ion-item>
+</ion-header>
+
+<ion-content mode="ios">
+
+  <ion-grid>
+    <ion-row>
+      <ion-col size="6" size-xs="6" size-sm="5" >
+        <ion-item lines="full">
+          <ion-label class="ion-text-wrap"><small>Dari</small></ion-label>
+          <ion-datetime *ngIf="company.package == 'Premium'" style="font-size:12px;" displayFormat="DD-MMM-YYYY" pickerFormat="DD-MMM-YYYY"  display-timezone="Asia/Jakarta" color="primary" [(ngModel)]="start_date" (ionChange)="changeEvent()"></ion-datetime>
+          <ion-datetime *ngIf="company.package == 'Lite'" style="font-size:12px;" displayFormat="DD-MMM-YYYY" pickerFormat="DD-MMM-YYYY"  display-timezone="Asia/Jakarta" color="primary" [(ngModel)]="start_date" min="{{min_date}}" (ionChange)="changeEvent()"></ion-datetime>
+        </ion-item>
+      </ion-col>
+
+      <ion-col size="6" size-xs="6" size-sm="5">
+        <ion-item lines="full">
+          <ion-label class="ion-text-wrap"><small>Sampai</small></ion-label>
+          <ion-datetime style="font-size:12px;" displayFormat="DD-MMM-YYYY" pickerFormat="DD-MMM-YYYY"  display-timezone="Asia/Jakarta" color="primary" [(ngModel)]="end_date" min="{{start_date}}" (ionChange)="changeEvent()"></ion-datetime>
+        </ion-item>
+    </ion-col>
+    </ion-row>
+  </ion-grid>
+  <div style="margin-top:-25px;">
+
+  <ion-grid>
+    <ion-row>
+      <ion-col size="12" size-md="6">
+        <ion-card class="no-padding">
+
+          <ion-card-content>
+            <ion-grid>
+              <ion-row>
+                <ion-col>
+                  <ion-item button lines="full" [routerLink]="['/report-sales/'+start_date+'/'+end_date+'/'+outlet_id]">
+                    <ion-icon name="bar-chart-outline" slot="start"></ion-icon>
+                    <ion-label>Ringkasan penjualan</ion-label>
+                  </ion-item>
+                </ion-col>
+              </ion-row>
+              <ion-row style="text-align:center;padding-top:20px;">
+                <ion-col>
+                  <small>
+                  <ion-text color="primary">Penjualan kotor </ion-text> <br/>
+                  {{global.currency(totalGrossSales)}}
+                  </small>
+                  </ion-col>
+                  <ion-col>
+                    <small>
+                    <ion-text color="primary">Penjualan bersih </ion-text> <br/>
+                    {{global.currency(totalNetSales)}}
+                    </small>
+                    </ion-col>
+              </ion-row>
+              <ion-row style="text-align:center;padding-top:20px;">
+                <ion-col>
+                  <small>
+                  <ion-text color="primary">Jumlah order </ion-text> <br/>
+                  {{totalTrx}}
+                  </small>
+                  </ion-col>
+                  <ion-col>
+                    <small>
+                    <ion-text color="primary">Produk terjual </ion-text> <br/>
+                    {{totalQty}}
+                    </small>
+                    </ion-col>
+              </ion-row>
+            </ion-grid>
+          </ion-card-content>
+        </ion-card>
+
+        <ion-card class="no-padding" *ngIf="company.package == 'Premium'">
+
+          <ion-card-content>
+            <ion-grid>
+              <ion-row>
+                <ion-col>
+                  <ion-item button lines="full" [routerLink]="['/report-sales/'+start_date+'/'+end_date+'/'+outlet_id]">
+                    <ion-icon name="accessibility-outline" slot="start"></ion-icon>
+                    <ion-label>Top pelanggan</ion-label>
+                  </ion-item>
+                </ion-col>
+              </ion-row>
+              <ion-row style="text-align:center;padding-top:20px;">
+                <ion-col>
+                  <ion-item lines="none">
+                    <ion-label color="primary"><small>Pelanggan</small></ion-label>
+                    <ion-text slot="end" color="primary"><small>Total transaksi</small></ion-text>
+                  </ion-item>
+                  <ion-item lines="none" *ngFor="let cust of topCustomer">
+                    <ion-label>{{cust.customer.name}}</ion-label>
+                    <ion-text slot="end">{{global.currency(cust.total_amount)}}</ion-text>
+                  </ion-item>
+                </ion-col>
+                </ion-row>
+
+            </ion-grid>
+          </ion-card-content>
+        </ion-card>
+
+      </ion-col>
+      <ion-col size="12" size-md="6" *ngIf="company.package == 'Premium'">
+        <ion-card>
+          <ion-card-content>
+
+            <ion-grid>
+              <ion-row>
+                <ion-col>
+                  <ion-item button lines="full" [routerLink]="['/report-product-sales/'+start_date+'/'+end_date+'/'+outlet_id]">
+                    <ion-icon name="pie-chart-outline" slot="start"></ion-icon>
+                    <ion-label>Penjualan produk</ion-label>
+                  </ion-item>
+                </ion-col>
+              </ion-row>
+              <ion-row *ngIf="showChart">
+                <ion-col size-xs="12" size-md="12">
+                  <div style="margin-top:30px;">
+                  <google-chart [data]="pieChart"></google-chart>
+                  </div>
+                </ion-col>
+                  <ion-col size-xs="12" size-md="12">
+                    <ion-item lines="none" *ngFor="let item of productChartPie;index as i">
+                      <ion-label *ngIf="i>0"><small>{{item[0]}}</small></ion-label>
+                      <ion-note *ngIf="i>0" slot="end" color="primary">{{item[1]}}</ion-note>
+                    </ion-item>
+
+                  </ion-col>
+              </ion-row>
+            </ion-grid>
+          </ion-card-content>
+
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  </div>
+</ion-content>

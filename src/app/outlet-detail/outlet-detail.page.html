@@ -1,0 +1,67 @@
+<ion-header mode="ios" *ngIf="showContent">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button fill="link" [routerLink]="['/outlet']"><ion-icon name="arrow-back-outline"></ion-icon></ion-button>
+    </ion-buttons>
+    <ion-title>{{outlet.name}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content *ngIf="showContent" mode="ios" class="ion-padding">
+  <ion-item>
+    <ion-label color="primary">Status</ion-label>
+    <ion-note slot="end">{{outlet.status}}</ion-note>
+  </ion-item>
+  <ion-item *ngIf="company.package == 'Premium'">
+    <ion-label color="primary"><small>Masa aktif hingga</small></ion-label>
+    <ion-note slot="end"><small>{{outlet.expired_at}}</small></ion-note>
+  </ion-item>
+  <ion-item lines="none">
+    <p>
+    <small>
+    <ion-text color="primary">Alamat outlet </ion-text><br/>
+    {{outlet.address}} <br/>
+    {{outlet.province.name}} <br/>
+    {{outlet.city.name}}<br/>
+    {{outlet.subdistrict.name}}<br/>
+
+    </small>
+    </p>
+
+  </ion-item>
+
+  <ion-grid>
+    <ion-row>
+      <ion-col size="4"><ion-button color="light" [routerLink]="['/outlet-edit/'+id]" expand="block">Edit</ion-button></ion-col>
+      <ion-col size="8" *ngIf="outlet.status == 'Pending'"><ion-button (click)="pay(outlet.subscription.payment_url)" expand="block">Bayar</ion-button></ion-col>
+
+    </ion-row>
+  </ion-grid>
+
+  <p style="text-align:center;" *ngIf="outlet.status == 'Active' || outlet.status == 'Expired'">Upgrade atau Perpanjang <br/> berlangganan outlet ini</p>
+  <ion-card  *ngIf="outlet.status == 'Active' || outlet.status == 'Expired'">
+    <ion-card-content>
+      <ion-item lines="none" button (click)="renew(12)">
+        <ion-label class="ion-text-wrap">Premium <strong>12 bulan </strong><br/>
+          <small>Harga <strong>Rp49.000</strong> / bulan <br/><ion-badge color="success"><strong>Hemat 33%</strong></ion-badge></small>
+        </ion-label>
+        <ion-text color="primary" slot="end">Rp588.000</ion-text>
+      </ion-item>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card  *ngIf="outlet.status == 'Active' || outlet.status == 'Expired'">
+    <ion-card-content>
+
+      <ion-item lines="none" button (click)="renew(1)">
+        <ion-label class="ion-text-wrap">Premium <strong>1 bulan </strong><br/>
+          <small>Harga Rp79.000 / bulan</small>
+        </ion-label>
+        <ion-text color="primary" slot="end">Rp79.000</ion-text>
+      </ion-item>
+
+    </ion-card-content>
+  </ion-card>
+
+
+</ion-content>

@@ -1,0 +1,73 @@
+<ion-header mode="ios">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button fill="link" [routerLink]="['/outlet']"><ion-icon name="arrow-back-outline"></ion-icon></ion-button>
+    </ion-buttons>
+    <ion-title>Tambah outlet</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content mode="ios" class="ion-padding">
+
+  <ion-item>
+    <ion-label position="stacked">Nama*</ion-label>
+    <ion-input type="text" [(ngModel)]="outlet.name" autocapitalize="on"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label position="stacked">Alamat*</ion-label>
+    <ion-textarea [(ngModel)]="outlet.address"></ion-textarea>
+  </ion-item>
+  <ion-item>
+    <ion-label position="stacked"><small>Provinsi</small></ion-label>
+    <ion-select interface="action-sheet" [(ngModel)]="outlet.province_id" (ionChange)="getCity()">
+      <ion-select-option value="">- Pilih provinsi -</ion-select-option>
+      <ion-select-option *ngFor="let prov of province" value="{{prov.id}}">{{prov.name}}</ion-select-option>
+    </ion-select>
+  </ion-item>
+  <ion-item>
+    <ion-label position="stacked"><small>Kota</small></ion-label>
+    <ion-select interface="action-sheet" [(ngModel)]="outlet.city_id" (ionChange)="getSubdistrict()">
+      <ion-select-option *ngFor="let c of city" [value]="c.id">{{c.name}}</ion-select-option>
+    </ion-select>
+  </ion-item>
+  <ion-item>
+    <ion-label position="stacked"><small>Kecamatan</small></ion-label>
+    <ion-select interface="action-sheet" [(ngModel)]="outlet.subdistrict_id">
+      <ion-select-option *ngFor="let sub of subdistrict" [value]="sub.id">{{sub.name}}</ion-select-option>
+    </ion-select>
+  </ion-item>
+  <ion-item>
+    <ion-label position="stacked"><small>Telepon</small></ion-label>
+    <ion-input class="input-text" size="large" type="tel" [(ngModel)]="outlet.phone"></ion-input>
+  </ion-item>
+
+
+  <ion-card>
+    <ion-card-content>
+      <ion-item lines="none" button (click)="purchase(12)">
+        <ion-label class="ion-text-wrap"><strong>12 bulan </strong><br/>
+          <small>Harga <strong>Rp49.000</strong> / bulan <br/><ion-badge color="success"><strong>Hemat 33%</strong></ion-badge></small>
+        </ion-label>
+        <ion-text color="primary" slot="end">Rp588.000</ion-text>
+      </ion-item>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-content>
+
+      <ion-item lines="none" button (click)="purchase(1)">
+        <ion-label class="ion-text-wrap"><strong>1 bulan </strong><br/>
+          <small>Harga Rp79.000 / bulan</small>
+        </ion-label>
+        <ion-text color="primary" slot="end">Rp79.000</ion-text>
+      </ion-item>
+
+    </ion-card-content>
+  </ion-card>
+
+
+</ion-content>
+<!-- <ion-footer class="ion-padding" mode="ios">
+    <ion-button expand="block" (click)="process()">Simpan</ion-button>
+</ion-footer> -->

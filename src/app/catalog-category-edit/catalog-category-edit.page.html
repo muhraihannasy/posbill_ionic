@@ -1,0 +1,25 @@
+
+<ion-header mode="ios">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button fill="link" [routerLink]="['/catalog-category']"><ion-icon name="arrow-back-outline"></ion-icon></ion-button>
+    </ion-buttons>
+    <ion-title>Ubah kategori</ion-title>
+    <ion-buttons slot="end">
+      <ion-button fill="link" color="danger" (click)="deleteConfirm()"><ion-icon name="trash-outline" color="danger"></ion-icon></ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding" mode="ios">
+<form (submit)="process()">
+  <ion-item lines="none">
+    <ion-label position="stacked" color="primary">Nama kategori*</ion-label>
+    <ion-input type="text" [(ngModel)]="category.name" autocapitalize="on" name="name"></ion-input>
+  </ion-item>
+</form>
+</ion-content>
+
+<ion-footer class="ion-padding" mode="ios">
+  <ion-button expand="block" (click)="process()">Simpan</ion-button>
+</ion-footer>

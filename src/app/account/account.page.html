@@ -1,0 +1,45 @@
+<div class="body-content">
+
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button fill="link" [routerLink]="['/tabs/tab-setting']"><ion-icon name="arrow-back-outline"></ion-icon></ion-button>
+    </ion-buttons>
+    <ion-title slot="start">{{user.name}}</ion-title>
+    <ion-buttons slot="end">
+      <ion-button [routerLink]="['/account-edit']"><ion-icon name="create-outline"></ion-icon></ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="ion-padding" mode="ios" *ngIf="showContent">
+  <ion-card>
+    <ion-card-content>
+      <ion-item lines="none">
+        <ion-label>Level</ion-label>
+        <ion-note slot="end" color="primary">{{user.level}}</ion-note>
+      </ion-item>
+      <ion-item lines="none">
+        <ion-label>Email</ion-label>
+        <ion-note slot="end">{{user.email}}</ion-note>
+      </ion-item>
+      <ion-item lines="none">
+        <ion-label>Telepon</ion-label>
+        <ion-note slot="end">{{user.phone}}</ion-note>
+      </ion-item>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-content>
+      <ion-item lines="none">
+        <ion-label>Nama bisnis</ion-label>
+        <ion-note slot="end" color="primary">{{company.name}}</ion-note>
+      </ion-item>
+      <ion-item lines="none">
+        <ion-label position="stacked">Alamat bisnis</ion-label>
+        <ion-text>{{company.address}}</ion-text>
+      </ion-item>
+    </ion-card-content>
+  </ion-card>
+</ion-content>
+</div>

@@ -1,0 +1,221 @@
+<ion-content class="ion-padding" color="light" mode="ios">
+  <!-- 
+  <ion-list>
+    <ion-list-header>
+      <ion-label><strong>POS</strong></ion-label>
+    </ion-list-header>
+    <ion-item *ngIf="user.level=='Owner'" (click)="clickToPage('/setting-sale')" button>
+      <ion-icon name="cart-outline" slot="start"></ion-icon>
+      <small>Pengaturan penjualan</small>
+    </ion-item>
+    <ion-item *ngIf="user.level=='Owner'" (click)="clickToPage('/setting-order-type')" button>
+      <ion-icon name="bag-handle-outline" slot="start"></ion-icon>
+      <small>Tipe pesanan</small>
+    </ion-item>
+    <ion-item *ngIf="user.level=='Owner'" (click)="clickToPage('/setting-payment')" button>
+      <ion-icon name="card-outline" slot="start"></ion-icon>
+      <small>Metode pembayaran</small>
+    </ion-item>
+    <ion-item  *ngIf="user.level=='Owner'" (click)="clickToPage('/setting-discount')" button>
+      <ion-icon name="gift-outline" slot="start"></ion-icon>
+      <small>Diskon</small>
+    </ion-item>
+    <ion-item  *ngIf="user.level=='Owner'" (click)="clickToPage('/setting-format')" button>
+      <ion-icon name="receipt-outline" slot="start"></ion-icon>
+      <small>Format nota</small>
+    </ion-item>
+    <ion-item (click)="clickToPage('/setting-printer')" button>
+      <ion-icon name="print-outline" slot="start"></ion-icon>
+      <small>Printer</small></ion-item>
+
+    <ion-item (click)="clickToPage('/customer')" button>
+      <ion-icon name="woman-outline" slot="start"></ion-icon>
+      <small>Pelanggan</small></ion-item>
+
+    </ion-list>
+    <ion-card color="primary" (click)="clickToPage('/setting-olshop')">
+      <ion-card-content>
+        <h2>Toko Online</h2>
+        <h4>Atur toko online Anda dengan mudah</h4><br/>
+     
+        <ion-button fill="outline" color="light">Pengaturan Toko Online</ion-button>
+      </ion-card-content>
+    </ion-card>
+    <ion-list style="margin-top:-20px;">
+        <ion-list-header>
+          <ion-label><strong>Akun</strong></ion-label>
+        </ion-list-header>
+        <ion-item *ngIf="user.level=='Owner'" (click)="clickToPage('/user')" button>
+          <ion-icon name="people-outline" slot="start"></ion-icon>
+          <small>Pengguna</small></ion-item>
+        <ion-item *ngIf="user.level=='Owner'"  (click)="clickToPage('/outlet')" button>
+          <ion-icon name="storefront-outline" slot="start"></ion-icon>
+          <small>Outlet & info berlangganan</small></ion-item>
+        <ion-item (click)="clickToPage('/account')" button>
+          <ion-icon name="shield-checkmark-outline" slot="start"></ion-icon>
+          <small>Ubah akun</small>
+        </ion-item>
+        <ion-item href="https://tawk.to/chat/602cb322918aa261273f9dd9/1euq7jqev" button>
+          <ion-icon name="chatbox-outline" slot="start"></ion-icon>
+          <small>Bantuan Live Chat</small>
+        </ion-item>
+       
+  </ion-list> -->
+
+  <ion-grid>
+    <ion-row>
+      <ion-col size="8" size-md="4" offset-md="3">
+        <ion-card color="primary">
+          <ion-card-content style="min-height: 90px">
+            {{user.name}} <br />
+            <ion-note>{{user.level}}</ion-note>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+      <ion-col
+        size="4"
+        size-md="2"
+        class="ion-text-center"
+        (click)="clickToPage('/account')"
+      >
+        <ion-card color="dark">
+          <ion-card-content style="min-height: 90px; white-space: nowrap">
+            <ion-icon name="person-circle-outline" color="light"></ion-icon>
+            <p>Edit Profil</p>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-grid>
+    <ion-row class="ion-text-center menu-setting">
+      <ion-col
+        size="6"
+        size-md="2"
+        offset-md="3"
+        (click)="clickToPage('/setting/order-payment')"
+      >
+        <ion-card>
+          <ion-card-content>
+            <ion-icon
+              name="cog-outline"
+              color="primary"
+              size="large"
+            ></ion-icon>
+            <p>Order & <br />pembayaran</p>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+      <ion-col
+        size="6"
+        size-md="2"
+        (click)="clickToPage('/setting-order-type')"
+      >
+        <ion-card>
+          <ion-card-content>
+            <ion-icon
+              name="bag-handle-outline"
+              color="primary"
+              size="large"
+            ></ion-icon>
+            <p>Tipe <br />pesanan</p>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+      <ion-col
+        size="6"
+        size-md="2"
+        (click)="clickToPage('/setting/format-printer')"
+      >
+        <ion-card>
+          <ion-card-content>
+            <ion-icon
+              name="receipt-outline"
+              color="primary"
+              size="large"
+            ></ion-icon>
+            <p>Nota dan <br />Printer</p>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+      <ion-col
+        size="6"
+        size-md="2"
+        offset-md="3"
+        (click)="clickToPage('/setting-online-shop')"
+      >
+        <ion-card>
+          <ion-card-content>
+            <ion-icon
+              name="cart-outline"
+              color="primary"
+              size="large"
+            ></ion-icon>
+            <p>Toko <br />online</p>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+      <ion-col size="6" size-md="2" (click)="clickToPage('/customer')">
+        <ion-card>
+          <ion-card-content>
+            <ion-icon
+              name="people-outline"
+              color="primary"
+              size="large"
+            ></ion-icon>
+            <p>Data <br />Pelanggan</p>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+      <ion-col size="6" size-md="2" (click)="clickToPage('/user')">
+        <ion-card>
+          <ion-card-content>
+            <ion-icon
+              name="person-outline"
+              color="primary"
+              size="large"
+            ></ion-icon>
+            <p>Data <br />Pengguna</p>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+      <ion-col
+        size="6"
+        size-md="2"
+        offset-md="3"
+        (click)="clickToPage('/outlet')"
+      >
+        <ion-card>
+          <ion-card-content>
+            <ion-icon
+              name="storefront-outline"
+              color="primary"
+              size="large"
+            ></ion-icon>
+            <p>Outlet & <br />info paket</p>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+      <ion-col size="6" size-md="2" (click)="clickToPage('/help')">
+        <ion-card>
+          <ion-card-content>
+            <ion-icon
+              name="help-outline"
+              color="primary"
+              size="large"
+            ></ion-icon>
+            <p>
+              Bantuan <br />
+              &nbsp;
+            </p>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <!-- <div class="ion-padding">
+  <ion-button expand="block" fill="link" size="small" color="danger" (click)="confirmLogout()"><ion-text color="danger">Keluar akun</ion-text></ion-button>
+  </div> -->
+</ion-content>

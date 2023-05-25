@@ -1,0 +1,49 @@
+<ion-header mode="ios" *ngIf="showContent">
+
+  <ion-toolbar>
+    <ion-title>{{product.name}}</ion-title>
+  </ion-toolbar>
+
+
+</ion-header>
+
+<ion-content mode="ios" *ngIf="showContent">
+
+  <p style="text-align:center;">
+    <small *ngIf="type == 'addition'">Penambahan stok</small>
+    <small *ngIf="type == 'deduction'">Pengurangan stok</small>
+  </p>
+
+  <ion-grid>
+  <ion-row style="border-bottom:solid 1px #ccc;">
+    <ion-col size="6"><ion-item lines="none"><ion-text color="primary"><small>Outlet</small></ion-text></ion-item></ion-col>
+    <ion-col size="6"><ion-item lines="none"><ion-text color="primary">
+      <small *ngIf="type == 'addition'">Jumlah yang ditambahkan</small>
+      <small *ngIf="type == 'deduction'">Jumlah yang dikurangi</small>
+
+    </ion-text></ion-item></ion-col>
+  </ion-row>
+  <ion-row *ngFor="let item of stockList" style="border-bottom:solid 1px #ccc;">
+    <ion-col size="6">
+      <ion-item lines="none">
+        <ion-label class="ion-text-wrap">{{item.name}} <br/>
+          <small>Stok saat ini : {{item.stock}}</small>
+        </ion-label>
+      </ion-item>
+    </ion-col>
+    <ion-col size="2" style="text-align:right;padding-top:10px;">
+      <ion-button size="small" fill="link" (click)="remove(item.id)"> <ion-icon color="primary" name="remove-outline"></ion-icon> </ion-button>
+    </ion-col>
+    <ion-col size="2" style="text-align:center;padding-top:10px;">
+      <ion-input [(ngModel)]="item.adjustment" name="outlet_stock[]" type="number" min="0" ></ion-input>
+    </ion-col>
+    <ion-col size="2" style="padding-top:10px;">
+        <ion-button size="small" fill="link" (click)="add(item.id)"> <ion-icon color="primary" name="add-outline"></ion-icon> </ion-button>
+    </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
+
+<ion-footer mode="ios" class="ion-padding" *ngIf="showContent">
+  <ion-button expand="block" (click)="process()">Simpan perubahan</ion-button>
+</ion-footer>

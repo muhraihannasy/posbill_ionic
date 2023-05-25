@@ -1,0 +1,65 @@
+<ion-item lines="none" color="success" *ngIf="source=='pos'">
+  <ion-icon name="checkmark-circle-outline" slot="end"></ion-icon>
+  Pesanan berhasil dibook!
+</ion-item>
+<ion-header mode="ios">
+
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button fill="link" [routerLink]="['/booking']"><ion-icon name="arrow-back-outline"></ion-icon></ion-button>
+    </ion-buttons>
+    <ion-title *ngIf="showContent">BOOK-{{booking.book_number}}</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="infoOffline()" fill="link" *ngIf="checkThisOrderSync()">
+        <ion-icon name="alert-circle-outline" color="danger" ></ion-icon>
+      </ion-button>
+      <ion-button (click)="cancelConfirm()" fill="link">
+        <ion-icon name="close-circle-outline" color="danger" ></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content mode="ios" class="ion-padding" *ngIf="showContent">
+  <ion-list>
+
+    <ion-item lines="none"><ion-label class="ion-text-wrap">No book <br/><small>{{booking.book_time}}</small></ion-label><ion-note slot="end" color="primary">BOOK-{{booking.book_number}}</ion-note></ion-item>
+    <ion-item lines="none"><small>No meja /referensi</small> <ion-note slot="end" color="primary"><small>{{booking.book_ref}}</small></ion-note></ion-item>
+    <ion-item lines="none"><small>Tipe pesanan</small> <ion-note slot="end" color="primary"><small>{{booking.order_type_label}}</small></ion-note></ion-item>
+    <ion-item lines="full"><small>Pelanggan</small> <ion-note slot="end" color="primary"><small>{{booking.customer.name}}</small></ion-note></ion-item>
+    <ion-item  *ngFor="let item of booking.booking_item" lines="none"><small>{{item.product.name}}<br/>{{global.currency(item.price)}} x {{item.qty}} <br/><span style="color:#666">{{item.note}}</span></small><ion-note slot="end"><small>{{global.currency(subtotalItem(item.price,item.qty))}}</small></ion-note></ion-item>
+    <ion-item lines="none">Subtotal <ion-note slot="end" color="primary">{{global.currency(booking.subtotal)}}</ion-note></ion-item>
+  </ion-list>
+
+</ion-content>
+
+<ion-footer class="ion-padding" mode="ios">
+  <ion-grid>
+    <ion-row>
+      <ion-col size="6"><ion-button size="small"  expand="block" fill="outline" (click)="sendWAPrompt()">
+        <ion-icon name="arrow-redo-outline" slot="start" ></ion-icon>
+          Kirim Whatsapp
+        </ion-button>
+      </ion-col>
+      <ion-col size="6"><ion-button size="small" expand="block" fill="outline" (click)="printReceipt()">
+        <ion-icon name="print-outline" slot="start"></ion-icon>
+          Cetak tanda booking
+        </ion-button>
+      </ion-col>
+      <ion-col  size="6"><ion-button expand="block" color="light" [routerLink]="['/booking-edit/'+id]">
+        <ion-icon name="create-outline" slot="start"></ion-icon>
+        Ubah booking
+        </ion-button>
+      </ion-col>
+      <ion-col  size="6"><ion-button expand="block" (click)="gotoPOS()" color="light" [routerLink]="['/tabs/tab-pos']">
+        <ion-icon name="calculator-outline" slot="start"></ion-icon>
+        Kembali ke POS
+        </ion-button>
+      </ion-col>
+      <ion-col  size="12"><ion-button expand="block" (click)="process()">
+        <ion-icon name="card-outline" slot="start"></ion-icon>
+        Order & Bayar
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-footer>

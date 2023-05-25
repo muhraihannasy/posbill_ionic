@@ -1,0 +1,28 @@
+ion-content {
+  --background: #912775;
+}
+
+.login-body {
+  background-color: #912775;
+  padding-top:100px;
+  height:100%;
+  color:#fff;
+  padding-left: 15%;
+  padding-right: 15%;
+}
+
+.background-purple {
+  background-color: #912775;
+}
+
+.input-text {
+  // border-radius: 10px;
+  border-bottom:1px solid #ccc;
+  background:#912775;
+  color:#fff;
+  padding:10px;
+}
+
+ion-footer {
+  --background:#912775;
+}

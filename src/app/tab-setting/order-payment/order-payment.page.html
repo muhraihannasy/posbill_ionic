@@ -1,0 +1,33 @@
+<ion-header mode="ios">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-buttons slot="start">
+        <ion-button fill="link" [routerLink]="['/tabs/tab-setting']"><ion-icon name="arrow-back-outline"></ion-icon></ion-button>
+      </ion-buttons>
+    </ion-buttons>
+    <ion-title>Order dan Pembayaran</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content mode="ios">
+
+  <ion-card [routerLink]="['/setting-sale']"  >
+    <ion-card-header>
+      <ion-card-subtitle color="primary">Biaya dan Pajak</ion-card-subtitle>
+    </ion-card-header>
+    <ion-card-content>
+      
+      Atur biaya tambahan (service charge) dan pajak yang akan dikenakan kepada pelanggan.
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card  [routerLink]="['/setting-payment']" >
+    <ion-card-header>
+      <ion-card-subtitle color="primary">Metode pembayaran</ion-card-subtitle>
+    </ion-card-header>
+    <ion-card-content>
+      Atur metode pembayaran yang akan diaktifkan untuk transaksi penjualan.
+    </ion-card-content>
+  </ion-card>
+
+</ion-content>

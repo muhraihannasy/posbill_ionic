@@ -1,0 +1,62 @@
+<ion-content mode="ios" style="background:#912775;">
+
+<div class="login-body">
+
+<h3>POSbill</h3>
+<br/>
+
+<div>
+
+    <ion-grid  *ngIf="owner">
+      <ion-row>
+        <ion-col><ion-button expand="block" color="light" fill="outline" (click)="swicthLogin('owner')">Owner / Admin</ion-button></ion-col>
+        <ion-col><ion-button expand="block" (click)="swicthLogin('staff')" >Kasir</ion-button></ion-col>
+
+      </ion-row>
+    </ion-grid>
+
+    <ion-grid  *ngIf="!owner">
+      <ion-row>
+        <ion-col><ion-button expand="block"  (click)="swicthLogin('owner')">Owner / Admin</ion-button></ion-col>
+        <ion-col><ion-button expand="block" color="light" fill="outline" (click)="swicthLogin('staff')" >Kasir</ion-button></ion-col>
+      </ion-row>
+    </ion-grid>
+
+    <br/><br/>
+
+    <div *ngIf="owner">
+    <ion-label><small>Email</small></ion-label><br/>
+    <ion-input class="input-text" size="large" [(ngModel)]="email"></ion-input>
+    <br/>
+    <ion-label><small>Password</small></ion-label><br/>
+    <ion-input type="password" class="input-text" size="large" [(ngModel)]="password"></ion-input>
+    </div>
+
+      <div *ngIf="!owner">
+      <ion-label><small>ID Kasir</small></ion-label><br/>
+      <ion-input class="input-text" size="large" [(ngModel)]="email"></ion-input>
+      <br/>
+      <ion-label><small>PIN</small></ion-label><br/>
+      <ion-input type="password" class="input-text" size="large" [(ngModel)]="password"></ion-input>
+      </div>
+
+    </div>
+
+    <br/><br/>
+    <ion-grid>
+      <ion-row>
+        <ion-col> <ion-button expand="block" color="dark" (click)="process()">Login</ion-button></ion-col>
+        <ion-col><ion-button expand="block" color="light" fill="outline" [routerLink]="['/register']">Daftar sekarang</ion-button></ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col *ngIf="owner">
+          <ion-button expand="block" color="danger" (click)="loginByGoogle()">
+            <ion-icon name="logo-google" slot="start"></ion-icon>
+            Login by Google</ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+
+</div>
+</ion-content>

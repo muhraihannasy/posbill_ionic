@@ -1,0 +1,25 @@
+<ion-header mode="ios">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button *ngIf="id" fill="link" [routerLink]="['/'+redirect+'/'+id]"><ion-icon name="arrow-back-outline"></ion-icon></ion-button>
+      <ion-button *ngIf="!id" fill="link" [routerLink]="['/'+redirect]"><ion-icon name="arrow-back-outline"></ion-icon></ion-button>
+    </ion-buttons>
+      <ion-searchbar (ionInput)="filterList($event)" placeholder="Cari pelanggan"></ion-searchbar>
+  </ion-toolbar>
+
+    <div class="ion-padding ion-text-center">
+      <ion-button fill="link" color="primary" (click)="choose({id:'Walk-in',name:'Walk-in'})"><ion-text color="primary">Walk-in</ion-text></ion-button>
+      <ion-button fill="outline" color="primary" (click)="presentAlertPrompt()" ><ion-text color="primary">+ Tambah pelanggan</ion-text></ion-button>
+    </div>
+</ion-header>
+
+<ion-content mode="ios">
+
+  <ion-list>
+    <ion-item button *ngFor="let item of customerSearch" (click)="choose(item)">
+      <ion-label>{{item.name}}</ion-label>
+      <ion-note slot="end"><small>{{item.phone}}</small></ion-note>
+    </ion-item>
+  </ion-list>
+
+</ion-content>

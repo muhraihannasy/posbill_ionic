@@ -1,0 +1,25 @@
+<ion-header mode="ios">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button fill="link" [routerLink]="['/tabs/tab-setting']"><ion-icon name="arrow-back-outline"></ion-icon></ion-button>
+    </ion-buttons>
+    <ion-title>Pengguna</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content mode="ios" class="ion-padding">
+
+  <ion-list>
+    <ion-item button *ngFor="let item of user" [routerLink]="['/user-edit/'+item.id]">
+      <ion-label>{{item.name}} <br/><small>{{item.email}}</small></ion-label>
+      <ion-note slot="end"><small>{{item.level}}</small></ion-note>
+    </ion-item>
+  </ion-list>
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+   <ion-fab-button [routerLink]="['/user-add']">
+     <ion-icon name="add-outline"></ion-icon>
+   </ion-fab-button>
+ </ion-fab>
+
+</ion-content>

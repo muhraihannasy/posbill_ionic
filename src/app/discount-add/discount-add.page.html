@@ -1,0 +1,36 @@
+<ion-header mode="ios">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button fill="link" [routerLink]="['/setting-discount']"><ion-icon name="arrow-back-outline"></ion-icon></ion-button>
+    </ion-buttons>
+    <ion-title>Tambah diskon</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content mode="ios">
+
+  <ion-content mode="ios" class="ion-padding">
+
+    <ion-item>
+      <ion-label position="stacked">Nama*</ion-label>
+      <ion-input type="text" [(ngModel)]="discount.name" autocapitalize="on"></ion-input>
+    </ion-item>
+    <ion-item lines="inset">
+      <ion-label><small>Jenis nilai diskon*</small></ion-label>
+      <ion-select interface="action-sheet" [(ngModel)]="discount.type">
+        <ion-select-option value="Percentage">Persentase (%)</ion-select-option>
+        <ion-select-option value="Fixed">Fixed </ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked">Nilai diskon*</ion-label>
+      <ion-input type="number" [(ngModel)]="discount.amount"></ion-input>
+    </ion-item>
+
+  </ion-content>
+
+</ion-content>
+
+<ion-footer class="ion-padding" mode="ios">
+    <ion-button expand="block" (click)="process()">Simpan</ion-button>
+</ion-footer>

@@ -1,0 +1,24 @@
+<ion-header mode="ios">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button fill="link" [routerLink]="['/setting/order-payment']"><ion-icon name="arrow-back-outline"></ion-icon></ion-button>
+    </ion-buttons>
+    <ion-title>Penjualan</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content mode="ios" class="ion-padding">
+
+  <ion-item>
+    <ion-label position="stacked">Terapkan service charge (dalam %)</ion-label>
+    <ion-input type="number" placeholder="0" [(ngModel)]="setting.service_charge"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label position="stacked">Terapkan pajak (dalam %)</ion-label>
+    <ion-input type="number" placeholder="0" [(ngModel)]="setting.tax"></ion-input>
+  </ion-item>
+
+</ion-content>
+<ion-footer class="ion-padding" mode="ios">
+    <ion-button expand="block" (click)="process()">Simpan</ion-button>
+</ion-footer>

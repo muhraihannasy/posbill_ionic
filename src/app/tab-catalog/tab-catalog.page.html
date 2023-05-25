@@ -1,0 +1,32 @@
+
+  <ion-content class="ion-padding" mode="ios">
+    <ion-list>
+
+      <ion-list-header>
+        <ion-label><strong>Produk</strong></ion-label>
+      </ion-list-header>
+      <ion-item [routerLink]="['/catalog-product-add']">
+        <ion-icon name="add-circle-outline" slot="start"></ion-icon>
+        <small>Tambah produk</small>
+      </ion-item>
+      <ion-item lines="none"  [routerLink]="['/catalog-product']">
+        <ion-icon name="fast-food-outline" slot="start" ></ion-icon>
+        <small>Daftar produk</small>
+      </ion-item>
+
+        <ion-list-header>
+          <ion-label><strong>Kategori</strong></ion-label>
+        </ion-list-header>
+        <ion-item [routerLink]="['/catalog-category-add']">
+          <ion-icon name="add-circle-outline" slot="start"></ion-icon>
+          <small>Tambah kategori</small></ion-item>
+        <ion-item  lines="none" [routerLink]="['/catalog-category']">
+          <ion-icon name="list-circle-outline" slot="start"></ion-icon>
+          <small>Daftar kategori</small></ion-item>
+
+    </ion-list>
+
+
+    
+
+</ion-content>

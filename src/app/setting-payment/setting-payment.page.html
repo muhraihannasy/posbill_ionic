@@ -1,0 +1,49 @@
+<ion-header mode="ios">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button fill="link" [routerLink]="['/setting/order-payment']"><ion-icon name="arrow-back-outline"></ion-icon></ion-button>
+    </ion-buttons>
+    <ion-title>Metode pembayaran</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content mode="ios" class="ion-padding">
+
+  <ion-list>
+  <ion-item>
+    <ion-label>Tunai</ion-label>
+    <ion-toggle [(ngModel)]="setting.payment_cash"></ion-toggle>
+  </ion-item>
+
+  <ion-item>
+    <ion-label>Kartu kredit</ion-label>
+    <ion-toggle [(ngModel)]="setting.payment_credit_card"></ion-toggle>
+  </ion-item>
+
+  <ion-item>
+    <ion-label>Kartu debit</ion-label>
+    <ion-toggle [(ngModel)]="setting.payment_debit_card"></ion-toggle>
+  </ion-item>
+
+  <ion-item>
+    <ion-label>Transfer Bank</ion-label>
+    <ion-toggle [(ngModel)]="setting.payment_transfer"></ion-toggle>
+  </ion-item>
+
+  <ion-item>
+    <ion-label>QRIS <br/><small>QRIS Statis (OVO, Gopay, DANA, LINKAJA, Shoppepay)</small></ion-label>
+    <ion-toggle [(ngModel)]="setting.payment_qris"></ion-toggle>
+  </ion-item>
+
+  <ion-item>
+    <ion-label>QRIS Online <br/><small>QRIS Dinamis (OVO, Gopay, DANA, LINKAJA, Shoppepay)</small>
+    <br/><small><a href="https://posbill.id/qris-online">Lihat informasi pengajuan QRIS online</a></small></ion-label>
+    <ion-toggle [(ngModel)]="setting.payment_qris_online" [disabled]="setting.xendit_key == null"></ion-toggle>
+  </ion-item>
+</ion-list>
+
+</ion-content>
+
+<ion-footer class="ion-padding" mode="ios">
+    <ion-button expand="block" (click)="process()">Simpan</ion-button>
+</ion-footer>

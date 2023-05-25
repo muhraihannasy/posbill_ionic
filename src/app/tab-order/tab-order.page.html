@@ -1,0 +1,177 @@
+<ion-menu
+  side="start"
+  menuId="orderleft"
+  contentId="orderleft"
+  mode="ios"
+  swipe-gesture="true"
+>
+  <ion-content id="orderleft">
+    <div class="ion-padding">
+      <ion-text color="primary">{{company.name}}</ion-text>
+    </div>
+    <ion-item button color="primary" detail="false">
+      <ion-icon name="storefront-outline" size="small" slot="start"></ion-icon>
+      <ion-label>{{activeOutlet.name}}</ion-label>
+      <ion-note slot="end">Aktif</ion-note>
+    </ion-item>
+    <ion-item-divider>
+      <small>Daftar outlet</small>
+    </ion-item-divider>
+
+    <ion-item
+      *ngFor="let item of outlet"
+      class="clickable ion-clickable"
+      (click)="changeOutlet(item.outlet)"
+      button
+    >
+      <ion-icon name="storefront-outline" size="small" slot="start"></ion-icon>
+      <ion-label><small>{{item.outlet.name}}</small></ion-label>
+    </ion-item>
+  </ion-content>
+  <ion-footer mode="ios" class="ion-padding" *ngIf="showContent">
+    <div class="ion-text-center" *ngIf="showUser">{{name}} ({{level}})</div>
+    <ion-button
+      size="small"
+      color="danger"
+      expand="block"
+      fill="link"
+      (click)="confirmLogout()"
+      ><ion-icon name="power-outline" slot="start"></ion-icon>
+      <ion-text color="danger">Keluar dari akun</ion-text></ion-button
+    >
+  </ion-footer>
+</ion-menu>
+
+<ion-header mode="ios">
+  <ion-toolbar>
+    <ion-buttons slot="start" style="margin-top: 10px; margin-left: 15px">
+      <ion-button size="small" (click)="openMenuLeft()"
+        ><ion-icon name="storefront-outline"></ion-icon
+      ></ion-button>
+    </ion-buttons>
+    <ion-searchbar
+      style="margin-top: 10px; margin-left: 5px"
+      (ionInput)="filterList($event)"
+      [(ngModel)]="orderNumberSearch"
+      placeholder="Cari nomor transaksi"
+    ></ion-searchbar>
+    <ion-buttons slot="end" *ngIf="totalOrderOffline > 0">
+      <ion-button color="danger" fill="link" (click)="syncUpOfflineData()">
+        <ion-icon name="sync-outline" slot="start"></ion-icon>
+        <ion-badge color="danger">{{totalOrderOffline}}</ion-badge></ion-button
+      >
+    </ion-buttons>
+  </ion-toolbar>
+
+  <ion-grid>
+    <ion-row>
+      <ion-col size="6" size-xs="6" size-sm="5">
+        <ion-item lines="full">
+          <ion-label class="ion-text-wrap"><small>Dari </small></ion-label>
+          <ion-datetime
+            style="font-size: 12px"
+            displayFormat="DD-MMM-YYYY"
+            pickerFormat="DD-MMM-YYYY"
+            display-timezone="Asia/Jakarta"
+            color="primary"
+            [(ngModel)]="start_date"
+          ></ion-datetime>
+        </ion-item>
+      </ion-col>
+      <ion-col size="6" size-xs="6" size-sm="5">
+        <ion-item lines="full">
+          <ion-label class="ion-text-wrap"><small>Sampai</small></ion-label>
+          <ion-datetime
+            style="font-size: 12px"
+            displayFormat="DD-MMM-YYYY"
+            pickerFormat="DD-MMM-YYYY"
+            display-timezone="Asia/Jakarta"
+            color="primary"
+            [(ngModel)]="end_date"
+            min="{{start_date}}"
+            (ionChange)="initialize()"
+          ></ion-datetime>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-grid>
+    <ion-row>
+      <ion-col size="3"
+        ><ion-button
+          size="small"
+          expand="block"
+          color="light"
+          (click)="filterStatus('All')"
+          >Semua</ion-button
+        ></ion-col
+      >
+      <ion-col size="3"
+        ><ion-button
+          size="small"
+          expand="block"
+          color="success"
+          (click)="filterStatus('Completed')"
+          >Lunas</ion-button
+        ></ion-col
+      >
+      <ion-col size="3"
+        ><ion-button
+          size="small"
+          expand="block"
+          color="warning"
+          (click)="filterStatus('Pending')"
+          >Belum lunas</ion-button
+        ></ion-col
+      >
+      <ion-col size="3"
+        ><ion-button
+          size="small"
+          expand="block"
+          color="danger"
+          (click)="filterStatus('Canceled')"
+          >Dibatalkan</ion-button
+        ></ion-col
+      >
+    </ion-row>
+  </ion-grid>
+</ion-header>
+
+<ion-content mode="ios">
+  <div style="margin-top: 200px; text-align: center" *ngIf="!showContent">
+    <ion-spinner name="crescent"></ion-spinner>
+  </div>
+
+  <ion-list *ngIf="showContent">
+    <div
+      *ngIf="orderSearch.length == 0"
+      style="text-align: center; font-size: 1em; margin-top: 5em"
+    >
+      Data Tidak Ada
+    </div>
+    <ion-item *ngFor="let item of orderSearch" (click)="detail(item.id)" button>
+      <ion-icon
+        name="{{labelStatusIcon(item.status)}}"
+        color="{{labelStatusColor(item.status)}}"
+        slot="start"
+      ></ion-icon>
+      <ion-label
+        ><small
+          ><ion-text color="primary">TRX-{{item.order_number}}</ion-text>
+          <br />
+          {{item.order_time}}</small
+        >
+      </ion-label>
+
+      <ion-note slot="end"
+        ><ion-icon
+          name="alert-circle-outline"
+          color="danger"
+          *ngIf="checkThisOrderSync(item.id)"
+        ></ion-icon
+        >&nbsp;<small>{{global.currency(item.total)}}</small>
+      </ion-note>
+    </ion-item>
+  </ion-list>
+</ion-content>

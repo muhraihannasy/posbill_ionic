@@ -1,0 +1,151 @@
+<ion-header mode="ios">
+
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button fill="link" [routerLink]="['/tabs/tab-pos']"><ion-icon name="arrow-back-outline"></ion-icon></ion-button>
+    </ion-buttons>
+    <ion-title>Pembayaran</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content mode="ios" class="ion-padding">
+
+<div class="payment-content">
+
+  <div class="payment-column">
+  <ion-list>
+    <ion-item lines="none" mode="ios" [routerLink]="['/select-customer/payment-options']" color="light"><small><ion-text color="primary">Pelanggan</ion-text></small>
+      <ion-note slot="end">{{customer.name}}</ion-note>
+    </ion-item>
+    <ion-item *ngIf="booking.id != ''"><small>No Booking <br/>Meja / Referensi</small>
+      <ion-note slot="end" style="text-align:right;"><small>BOOK-{{booking.book_number}} <br/>{{booking.book_ref}}</small></ion-note>
+    </ion-item>
+    <ion-item><small>Subtotal</small>
+
+      <ion-note slot="end"><small>{{global.currency(subtotal)}} </small></ion-note>
+    </ion-item>
+    <ion-item button [routerLink]="['/select-discount/payment-options']"><small>Diskon</small>
+
+      <ion-note slot="end" color="primary"><small>{{global.currency(discount.amount)}}</small></ion-note>
+    </ion-item>
+    <ion-item><small>Service Charge</small>
+
+      <ion-note slot="end"><small>{{global.currency(serviceCharge)}}</small></ion-note>
+    </ion-item>
+    <ion-item><small>Pajak</small>
+
+      <ion-note slot="end"><small>{{global.currency(tax)}}</small></ion-note>
+    </ion-item>
+
+  </ion-list>
+
+
+  <ion-card color="dark">
+    <ion-card-content>
+      <h4 class="total">{{global.currency(total)}}</h4>
+    </ion-card-content>
+  </ion-card>
+
+  </div>
+
+  <div class="payment-column">
+  <ion-grid>
+    <ion-row>
+      <ion-col size="6" *ngIf="company.payment_cash == 1">
+        <ion-button expand="block"  color="dark" fill="outline" *ngIf="cash">Tunai</ion-button>
+        <ion-button expand="block"  color="light"  *ngIf="!cash" (click)="selectcash()">Tunai</ion-button>
+      </ion-col>
+      <ion-col size="6">
+        <ion-button expand="block" color="dark" fill="outline" *ngIf="!cash">Non Tunai</ion-button>
+        <ion-button expand="block"  color="light" *ngIf="cash" (click)="selectcashless()">Non Tunai</ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <div *ngIf="cash && company.payment_cash">
+  <ion-item>
+    <ion-label position="stacked">Uang diterima</ion-label>
+    <ion-input type="tel" [(ngModel)]="amountReceived" (change)="amountReceivedChange()"></ion-input>
+
+  </ion-item>
+
+  <div class="ion-padding">
+    <ion-button color="light" (click)="shortcutAmount(total)" color="{{checkIfAmountMatch(total)}}">Uang Pas</ion-button>
+    <ion-button color="light" (click)="shortcutAmount(50000)" color="{{checkIfAmountMatch(50000)}}">{{global.currency(50000)}}</ion-button>
+    <ion-button color="light" (click)="shortcutAmount(100000)" color="{{checkIfAmountMatch(100000)}}">{{global.currency(100000)}}</ion-button>
+    <ion-button color="light" (click)="shortcutAmount(200000)" color="{{checkIfAmountMatch(200000)}}">{{global.currency(200000)}}</ion-button>
+    <ion-button color="light" (click)="shortcutAmount(300000)" color="{{checkIfAmountMatch(300000)}}">{{global.currency(300000)}}</ion-button>
+
+  </div>
+
+  </div>
+  <div *ngIf="!cash">
+    <ion-list>
+  <ion-radio-group [(ngModel)]="paymentMethodChannel">
+    <ion-item *ngIf="company.payment_debit_card == 1" (click)="openPaymentNote('Debit Card')">
+      <ion-label>Kartu Debit</ion-label>
+      <ion-radio slot="start" value="Debit Card"></ion-radio>
+      <ion-icon name="card-outline" slot="end"></ion-icon>
+    </ion-item>
+    <ion-item *ngIf="company.payment_credit_card == 1" (click)="openPaymentNote('Credit Card')">
+      <ion-label>Kartu Kredit</ion-label>
+      <ion-radio slot="start" value="Credit Card"></ion-radio>
+      <ion-icon name="card-outline" slot="end"></ion-icon>
+    </ion-item>
+    <ion-item *ngIf="company.payment_transfer == 1" (click)="openPaymentNote('Transfer Bank')">
+      <ion-label>Transfer Bank</ion-label>
+      <ion-radio slot="start" value="Transfer Bank"></ion-radio>
+      <ion-icon name="enter-outline" slot="end"></ion-icon>
+    </ion-item>
+    <ion-item *ngIf="company.payment_qris == 1">
+      <ion-label class="ion-text-wrap">QRIS <p><small>OVO, Gopay, DANA, ShoppePay, dll</small></p></ion-label>
+      <ion-radio slot="start" value="QRIS"></ion-radio>
+      <ion-icon name="qr-code-outline" slot="end"></ion-icon>
+    </ion-item>
+    <ion-item *ngIf="company.payment_qris_online == 1">
+      <ion-label class="ion-text-wrap">QRIS Online <p><small>OVO, Gopay, DANA, ShoppePay, dll</small></p></ion-label>
+      <ion-radio slot="start" value="QRIS Online"></ion-radio>
+      <ion-icon name="qr-code-outline" slot="end"></ion-icon>
+    </ion-item>
+
+  </ion-radio-group>
+  </ion-list>
+  </div>
+
+
+
+  </div>
+
+  </div>
+
+</ion-content>
+<ion-footer mode="ios" class="ion-padding" style="border-top:1px solid #ccc;">
+  <ion-grid>
+    <ion-row>
+      <!-- <ion-col size="3">
+        <ion-button [routerLink]="['/tabs/tab-pos']" color="light" expand="block">
+        <ion-icon name="arrow-back-outline"></ion-icon>
+        </ion-button>
+
+      </ion-col> -->
+
+      <ion-col size="2">
+        <ion-button (click)="openNote()" color="light" expand="block">
+          <ion-icon name="document-text-outline"></ion-icon>
+        </ion-button>
+      </ion-col>
+      <ion-col size="5">
+        <ion-button (click)="confirmToProcess('Pending')" color="light" expand="block">
+          Bayar nanti
+        </ion-button>
+      </ion-col>
+
+      <ion-col size="5">
+        <ion-button (click)="confirmToProcess('Completed')" color="primary" expand="block">
+          Bayar
+        <ion-icon name="arrow-forward-outline" slot="end"></ion-icon>
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-footer>

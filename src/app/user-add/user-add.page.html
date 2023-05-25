@@ -1,0 +1,66 @@
+<ion-header mode="ios">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button fill="link" [routerLink]="['/user']"><ion-icon name="arrow-back-outline"></ion-icon></ion-button>
+    </ion-buttons>
+    <ion-title>Tambah pengguna</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content mode="ios" class="ion-padding" *ngIf="!showResult">
+
+  <ion-item lines="inset">
+    <ion-label><small>Level*</small></ion-label>
+    <ion-select interface="action-sheet" [(ngModel)]="user.level">
+      <ion-select-option value="Admin">Admin</ion-select-option>
+      <ion-select-option value="Cashier">Kasir</ion-select-option>
+    </ion-select>
+  </ion-item>
+  <ion-item>
+    <ion-label position="stacked">Nama*</ion-label>
+    <ion-input type="text" [(ngModel)]="user.name"></ion-input>
+  </ion-item>
+
+  <ion-item *ngIf="user.level == 'Admin'">
+    <ion-label position="stacked">Email*</ion-label>
+    <ion-input type="text" [(ngModel)]="user.email"></ion-input>
+  </ion-item>
+
+  <ion-item *ngIf="user.level == 'Admin'">
+    <ion-label position="stacked">Password*</ion-label>
+    <ion-input type="password" [(ngModel)]="user.password"></ion-input>
+  </ion-item>
+
+  <ion-list>
+  <ion-list-header>Akses outlet</ion-list-header>
+  <ion-item *ngFor="let item of outlet">
+    <ion-label><small>{{item.name}}</small></ion-label>
+    <ion-toggle [(ngModel)]="item.select"></ion-toggle>
+  </ion-item>
+  </ion-list>
+
+</ion-content>
+
+<ion-content mode="ios" class="ion-padding" *ngIf="showResult">
+  <ion-card>
+    <ion-card-content>
+      <ion-item>
+        <ion-label>Name</ion-label>
+        <ion-text slot="end">{{dataResult.name}}</ion-text>
+      </ion-item>
+      <ion-item>
+        <ion-label>Username <br/><ion-button fill="outline" size="small" (click)="copy(dataResult.username)">Copy</ion-button></ion-label>
+        <ion-text slot="end">{{dataResult.username}}</ion-text>
+      </ion-item>
+      <ion-item lines="none">
+        <ion-label>Password <br/><ion-button fill="outline" size="small" (click)="copy(dataResult.password)">Copy</ion-button></ion-label>
+        <ion-text slot="end">{{dataResult.password}}</ion-text>
+      </ion-item>
+    </ion-card-content>
+  </ion-card>
+</ion-content>
+
+<ion-footer class="ion-padding" mode="ios">
+    <ion-button expand="block" (click)="process()" *ngIf="!showResult">Simpan</ion-button>
+    <ion-button expand="block" [routerLink]="['/user']" *ngIf="showResult">Kembali</ion-button>
+</ion-footer>

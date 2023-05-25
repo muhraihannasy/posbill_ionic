@@ -1,0 +1,102 @@
+<ion-item lines="none" color="success" *ngIf="source=='pos'">
+  <ion-icon name="checkmark-circle-outline" slot="end"></ion-icon>
+  Transaksi berhasil ditambahkan
+</ion-item>
+
+<ion-item lines="none" color="success" *ngIf="source=='payment'">
+  <ion-icon name="checkmark-circle-outline" slot="end"></ion-icon>
+  Pembayaran berhasil
+</ion-item>
+<ion-header mode="ios" *ngIf="showContent">
+
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button fill="link" [routerLink]="['/tabs/tab-order']"><ion-icon name="arrow-back-outline"></ion-icon></ion-button>
+    </ion-buttons>
+    <ion-title *ngIf="showContent" style="font-size:14px;line-height:14px;">TRX-{{order.order_number}} <br/><span style="font-size:11px; font-weight:normal;">{{order.source}}</span></ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="infoOffline()" fill="link" *ngIf="checkThisOrderSync()">
+        <ion-icon name="alert-circle-outline" color="danger" ></ion-icon>
+      </ion-button>
+
+      <ion-button (click)="cancelConfirm()" fill="link" *ngIf="order.status == 'Completed' || order.status == 'Pending'">
+        <ion-icon name="close-circle-outline" color="danger" ></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content mode="ios" class="ion-padding" *ngIf="showContent">
+  <ion-list>
+    <ion-item lines="full"><ion-label>Status</ion-label>
+      <ion-badge *ngIf="order.status == 'Pending'" slot="end" color="warning"><strong>Belum lunas</strong></ion-badge>
+       <ion-badge *ngIf="order.status == 'Completed'" slot="end" color="success"><strong>Lunas</strong></ion-badge>
+       <ion-badge *ngIf="order.status == 'Canceled'" slot="end" color="danger"><strong>Dibatalkan</strong></ion-badge>
+
+    </ion-item>
+    <ion-item lines="none"><ion-label class="ion-text-wrap">No order <br/><small>{{order.order_time}}</small></ion-label><ion-note slot="end" color="primary">TRX-{{order.order_number}}</ion-note></ion-item>
+    <ion-item lines="none"><small>Tipe pesanan</small> <ion-note slot="end" color="primary"><small>{{order.order_type_label}}</small></ion-note></ion-item>
+    <ion-item lines="full"><ion-label><small>Pelanggan <br/>Telepon</small></ion-label> <ion-text slot="end" color="primary" style="text-align:right;"><small>{{order.customer_name}} <br/><strong><a href="https://wa.me/{{order.customer_phone}}">{{order.customer_phone}}</a></strong></small></ion-text></ion-item>
+    <!-- <ion-item lines="full"><small></small> <ion-note slot="end" color="primary"><small>Whatsapp</small></ion-note></ion-item> -->
+
+    <ion-item  *ngFor="let item of order.order_item" lines="none"><ion-label class="ion-text-wrap">{{item.product.name}}<small><br/>{{global.currency(item.price)}} x {{item.qty}} <br/><span style="color:#666">{{item.note}}</span></small></ion-label><ion-note slot="end"><small>{{global.currency(subtotalItem(item.price,item.qty))}}</small></ion-note></ion-item>
+
+    <ion-item lines="none" class="item-small"><small><strong>Subtotal</strong></small><ion-note slot="end" color="dark"><small>{{global.currency(order.subtotal)}}</small></ion-note></ion-item>
+    <ion-item lines="none" class="item-small" *ngIf="order.discount > 0"><small>Diskon </small><ion-note slot="end"><small>{{global.currency(order.discount)}}</small></ion-note></ion-item>
+    <ion-item lines="none" class="item-small" *ngIf="order.service_charge > 0"><small>Service charge ({{company.service_charge}}%)</small><ion-note slot="end"><small>{{global.currency(order.service_charge)}}</small></ion-note></ion-item>
+    <ion-item lines="full" *ngIf="order.tax > 0"><small>Pajak ({{company.tax}}%)</small><ion-note slot="end"><small>{{global.currency(order.tax)}}</small></ion-note></ion-item>
+    <ion-item lines="none">Total<ion-note slot="end" color="dark">{{global.currency(order.total)}}</ion-note></ion-item>
+    <ion-item lines="full" *ngIf="order.status == 'Completed'"><small>Pembayaran ({{order.payment_channel}})</small><ion-note slot="end" color="dark"><small>{{global.currency(order.cash_collected)}}</small></ion-note></ion-item>
+    <ion-item lines="full" *ngIf="order.status == 'Completed'"><small>Ref pembayaran </small><ion-note slot="end" color="dark"><small>{{order.payment_note}}</small></ion-note></ion-item>
+    <ion-item lines="full" *ngIf="order.status == 'Completed' && order.payment_method == 'Cash'"><small>Uang kembali</small><ion-note slot="end" color="dark"><small>{{global.currency(order.cash_collected - order.total)}}</small></ion-note></ion-item>
+
+
+    <ion-item lines="none"><ion-label class="ion-text-wrap">Catatan order</ion-label><ion-note slot="end" color="primary"><small>{{order.note}}</small></ion-note></ion-item>
+  </ion-list>
+
+</ion-content>
+
+<ion-footer class="ion-padding" mode="ios" *ngIf="showContent">
+  <ion-grid>
+    <ion-row>
+      <ion-col *ngIf="order.payment_channel == 'QRIS Online' && order.status == 'Pending'"><ion-button expand="block" fill="outline" [routerLink]="['/orders-payment-qris/'+id]">
+        <ion-icon name="qr-code-outline" slot="start" ></ion-icon>
+         Bayar QRIS
+      </ion-button>
+      </ion-col>
+
+      <ion-col *ngIf="order.status == 'Completed'"><ion-button expand="block" (click)="printReceipt2()">
+        <ion-icon name="print-outline" slot="start"></ion-icon>
+        Cetak nota
+      </ion-button>
+      </ion-col>
+
+      <ion-col *ngIf="order.status == 'Completed'"><ion-button expand="block" (click)="printOrder()">
+        <ion-icon name="print-outline" slot="start"></ion-icon>
+        Cetak order
+      </ion-button>
+      </ion-col>
+
+      <ion-col *ngIf="order.status == 'Completed'"><ion-button expand="block" fill="outline" (click)="sendWAPrompt()">
+        <ion-icon name="arrow-redo-outline" slot="start" ></ion-icon>
+        Kirim Whatsapp
+      </ion-button>
+      </ion-col>
+
+      <ion-col *ngIf="order.status == 'Pending'"><ion-button expand="block" color="secondary" [routerLink]="['/orders-edit/'+order.id]">
+        <ion-icon name="create-outline" slot="start"></ion-icon>
+        Ubah pesanan
+      </ion-button>
+      </ion-col>
+      <ion-col  *ngIf="order.status == 'Pending'"><ion-button expand="block" color="primary" [routerLink]="['/orders-payment/'+order.id]">
+        <ion-icon name="card-outline" slot="start"></ion-icon>
+        Bayar
+      </ion-button>
+      </ion-col>
+      <ion-col><ion-button expand="block" color="light" (click)="gotoPOS()">
+        <ion-icon name="calculator-outline" slot="start"></ion-icon>
+        Kembali ke POS
+      </ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-footer>

@@ -1,0 +1,24 @@
+<ion-header mode="ios" >
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button fill="link" [routerLink]="['/tabs/tab-setting']"><ion-icon name="arrow-back-outline"></ion-icon></ion-button>
+    </ion-buttons>
+    <ion-title>Tipe pesanan</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content mode="ios" class="ion-padding">
+
+  <div style="margin-bottom:20px;"></div>
+
+  <ion-item lines="none"><ion-toggle slot="start" [(ngModel)]="setting.order_type1"></ion-toggle><ion-input placeholder="" [(ngModel)]="setting.order_type_label1" autocapitalize="on"></ion-input></ion-item>
+  <ion-item lines="none"><ion-toggle slot="start" [(ngModel)]="setting.order_type2"></ion-toggle><ion-input placeholder="" [(ngModel)]="setting.order_type_label2" autocapitalize="on"></ion-input></ion-item>
+  <ion-item lines="none"><ion-toggle slot="start" [(ngModel)]="setting.order_type3"></ion-toggle><ion-input placeholder="" [(ngModel)]="setting.order_type_label3" autocapitalize="on"></ion-input></ion-item>
+  <ion-item lines="none"><ion-toggle slot="start" [(ngModel)]="setting.order_type4"></ion-toggle><ion-input placeholder="" [(ngModel)]="setting.order_type_label4" autocapitalize="on"></ion-input></ion-item>
+  <ion-item lines="none"><ion-toggle slot="start" [(ngModel)]="setting.order_type5"></ion-toggle><ion-input placeholder="" [(ngModel)]="setting.order_type_label5" autocapitalize="on"></ion-input></ion-item>
+
+</ion-content>
+
+<ion-footer mode="ios" class="ion-padding">
+  <ion-button (click)="process()" expand="block">Simpan</ion-button>
+</ion-footer>

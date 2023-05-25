@@ -1,0 +1,47 @@
+<ion-header mode="ios">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button fill="link" [routerLink]="['/tabs/tab-catalog']"><ion-icon name="arrow-back-outline"></ion-icon></ion-button>
+    </ion-buttons>
+    <ion-title color="primary">Produk</ion-title>
+  </ion-toolbar>
+
+</ion-header>
+
+<ion-content [fullscreen]="true" mode="ios" *ngIf="showContent">
+
+  <ion-list *ngFor="let catItem of category">
+
+    <ion-list-header>
+      <ion-label>{{catItem.name}}</ion-label>
+    </ion-list-header>
+
+    <ion-item-sliding *ngFor="let item of getProductByCategory(catItem.id)" >
+    <ion-item [routerLink]="['/catalog-product-edit/'+item.id]" button detail="false" >
+      <ion-avatar slot="start">
+        <img src="{{item.image}}" />
+        <!-- <div class="text-avatar">
+          {{item.name.charAt(0).toUpperCase()}}
+        </div> -->
+      </ion-avatar>
+    <ion-label>{{item.name}} <br/><small>
+      <ion-note>{{global.currency(item.price)}}</ion-note>
+    </small></ion-label>
+
+    </ion-item>
+    <ion-item-options side="end">
+      <ion-item-option color="danger" (click)="deleteConfirm(item.id)"><ion-icon name="trash-outline" slot="start"></ion-icon></ion-item-option>
+    </ion-item-options>
+
+    </ion-item-sliding>
+
+
+  </ion-list>
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+   <ion-fab-button [routerLink]="['/catalog-product-add']">
+     <ion-icon name="add-outline"></ion-icon>
+   </ion-fab-button>
+ </ion-fab>
+
+</ion-content>

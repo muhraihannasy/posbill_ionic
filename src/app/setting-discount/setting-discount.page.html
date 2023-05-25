@@ -1,0 +1,23 @@
+<ion-header mode="ios">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button fill="link" [routerLink]="['/tabs/tab-setting']"><ion-icon name="arrow-back-outline"></ion-icon></ion-button>
+    </ion-buttons>
+    <ion-title>Diskon</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content mode="ios" class="ion-padding">
+
+  <ion-item button *ngFor="let item of discount" [routerLink]="['/discount-edit/'+item.id]">
+    <ion-label>{{item.name}}</ion-label>
+    <ion-note>{{typeFormat(item.amount,item.type)}}</ion-note>
+  </ion-item>
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+   <ion-fab-button [routerLink]="['/discount-add']">
+     <ion-icon name="add-outline"></ion-icon>
+   </ion-fab-button>
+ </ion-fab>
+
+</ion-content>

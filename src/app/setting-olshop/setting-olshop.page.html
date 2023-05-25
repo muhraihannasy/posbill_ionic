@@ -1,0 +1,39 @@
+<ion-header mode="ios">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button fill="link" [routerLink]="['/tabs/tab-setting']"><ion-icon name="arrow-back-outline"></ion-icon></ion-button>
+    </ion-buttons>
+    <ion-title>Pengaturan Toko Online</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content mode="ios" class="ion-padding">
+  <ion-list>
+    <ion-item>
+      <ion-label>Aktifkan Toko Online</ion-label>
+      <ion-toggle [(ngModel)]="setting.site_enabled"></ion-toggle>
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked">Situs URL</ion-label>
+      <ion-input [(ngModel)]="setting.site_name"></ion-input>
+
+    </ion-item>
+    <p style="text-align:center;"><small>toko.posbill.id/<strong>{{setting.site_name}}</strong></small></p>
+    <br/>
+    <p style="text-align:center;">Logo situs (300px x 300px)</p>
+    <div (click)="takePictureLogo()" style="width:200px;height:200px;margin-left:auto;margin-right:auto;margin-bottom:20px;border-radius:5px;overflow:hidden;border:1px #ccc dashed;">
+      <img src="{{setting.site_logo}}" />
+    </div>
+    <br/>
+    <p style="text-align:center;">Banner (1024px x 500px)</p>
+    <div (click)="takePictureBanner()" style="text-align:center;width:90%;height:200px;margin-left:auto;margin-right:auto;margin-bottom:20px;border-radius:5px;overflow:hidden;border:1px #ccc dashed;">
+      <img src="{{setting.site_banner}}" />
+    </div>
+
+  </ion-list>
+
+</ion-content>
+
+<ion-footer class="ion-padding" mode="ios">
+    <ion-button expand="block" (click)="process()">Simpan</ion-button>
+</ion-footer>

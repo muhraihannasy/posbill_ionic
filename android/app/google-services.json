@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "419022810645",
+    "project_id": "nstekapps-posbill",
+    "storage_bucket": "nstekapps-posbill.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:419022810645:android:8b1e103b80f2a67e4d681c",
+        "android_client_info": {
+          "package_name": "app.posbill.id"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "419022810645-3a6o0rb0gvi3391etsj1jlkp815fe0jr.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "app.posbill.id",
+            "certificate_hash": "a5a76ccc23a86c864429b2ce1074ddafefdf69ec"
+          }
+        },
+        {
+          "client_id": "419022810645-9uml9tleggaosrv0sk5dn54eep8l0p0n.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "app.posbill.id",
+            "certificate_hash": "5c602ce246d83d72edf490879f155d5aa1eaf603"
+          }
+        },
+        {
+          "client_id": "419022810645-f484elfhllliom658ffqhjah56bk6972.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBBcbeH0STvFt8o4kAO6Ov_6J1Vb8KSLjM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "419022810645-f484elfhllliom658ffqhjah56bk6972.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

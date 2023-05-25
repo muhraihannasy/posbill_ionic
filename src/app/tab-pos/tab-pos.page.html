@@ -1,0 +1,423 @@
+<ion-menu
+  side="start"
+  menuId="first"
+  contentId="main"
+  mode="ios"
+  swipe-gesture="true"
+>
+  <ion-content id="main">
+    <div class="ion-padding">
+      <ion-text color="primary">{{company.name}}</ion-text>
+    </div>
+    <ion-item button color="primary" detail="false">
+      <ion-icon name="storefront-outline" size="small" slot="start"></ion-icon>
+      <ion-label>{{activeOutlet.name}}</ion-label>
+      <ion-note slot="end">Aktif</ion-note>
+    </ion-item>
+    <ion-item-divider>
+      <small>Daftar outlet</small>
+    </ion-item-divider>
+
+    <ion-item
+      *ngFor="let item of outlet"
+      class="clickable ion-clickable"
+      (click)="changeOutlet(item.outlet)"
+      button
+    >
+      <ion-icon name="storefront-outline" size="small" slot="start"></ion-icon>
+      <ion-label><small>{{item.outlet.name}}</small></ion-label>
+    </ion-item>
+  </ion-content>
+  <ion-footer mode="ios" class="ion-padding" *ngIf="showContent">
+    <div class="ion-text-center" *ngIf="showUser">{{name}} ({{level}})</div>
+    <ion-button
+      size="small"
+      color="danger"
+      expand="block"
+      fill="link"
+      (click)="confirmLogout()"
+      ><ion-icon name="power-outline" slot="start"></ion-icon>
+      <ion-text color="danger">Keluar dari akun</ion-text></ion-button
+    >
+  </ion-footer>
+</ion-menu>
+
+<ion-header mode="ios">
+  <div class="product-content">
+    <ion-item color="danger" *ngIf="offline">
+      <div class="ion-text-center">Anda dalam mode Offline</div>
+    </ion-item>
+    <ion-toolbar color="light">
+      <ion-buttons slot="start" style="margin-top: 10px; margin-left: 15px">
+        <ion-button size="small" (click)="openMenuLeft()"
+          ><ion-icon name="storefront-outline"></ion-icon
+        ></ion-button>
+      </ion-buttons>
+
+      <ion-searchbar
+        class="search-pos"
+        (ionInput)="filterList($event)"
+        placeholder="Cari di outlet {{activeOutlet.name}}"
+      ></ion-searchbar>
+
+      <ion-buttons slot="end" style="margin-top: 10px">
+        <ion-select
+          interface="popover"
+          class="type-order-tab"
+          [(ngModel)]="orderType"
+          (ionChange)="setPrice()"
+        >
+          <ion-select-option value="none">- Jenis pesanan -</ion-select-option>
+          <ion-select-option *ngIf="company.order_type1" value="1"
+            >{{company.order_type_label1}}</ion-select-option
+          >
+          <ion-select-option *ngIf="company.order_type2" value="2"
+            >{{company.order_type_label2}}</ion-select-option
+          >
+          <ion-select-option *ngIf="company.order_type3" value="3"
+            >{{company.order_type_label3}}</ion-select-option
+          >
+          <ion-select-option *ngIf="company.order_type4" value="4"
+            >{{company.order_type_label4}}</ion-select-option
+          >
+          <ion-select-option *ngIf="company.order_type5" value="5"
+            >{{company.order_type_label5}}</ion-select-option
+          >
+        </ion-select>
+
+        <ion-button size="small" (click)="scanBarcode()"
+          ><ion-icon name="scan-outline"></ion-icon
+        ></ion-button>
+        <ion-button size="small" [routerLink]="['/booking']"
+          ><ion-icon name="save-outline"></ion-icon
+        ></ion-button>
+      </ion-buttons>
+    </ion-toolbar>
+    <ion-item lines="full" color="primary" class="type-order-mobile">
+      <ion-label color="light">Jenis pesanan</ion-label>
+      <ion-select
+        interface="popover"
+        [(ngModel)]="orderType"
+        (ionChange)="setPrice()"
+      >
+        <ion-select-option value="none">-</ion-select-option>
+        <ion-select-option *ngIf="company.order_type1" value="1"
+          >{{company.order_type_label1}}</ion-select-option
+        >
+        <ion-select-option *ngIf="company.order_type2" value="2"
+          >{{company.order_type_label2}}</ion-select-option
+        >
+        <ion-select-option *ngIf="company.order_type3" value="3"
+          >{{company.order_type_label3}}</ion-select-option
+        >
+        <ion-select-option *ngIf="company.order_type4" value="4"
+          >{{company.order_type_label4}}</ion-select-option
+        >
+        <ion-select-option *ngIf="company.order_type5" value="5"
+          >{{company.order_type_label5}}</ion-select-option
+        >
+      </ion-select>
+    </ion-item>
+  </div>
+</ion-header>
+
+<ion-content mode="ios" *ngIf="showPOS && showContent">
+  <div class="product-content">
+    <div class="list">
+      <ion-item-group *ngFor="let catItem of category">
+        <ion-item-divider
+          color="light"
+          *ngIf="getProductByCategory(catItem.id).length > 0"
+        >
+          <ion-label>{{catItem.name}}</ion-label>
+        </ion-item-divider>
+        <ion-item-sliding *ngFor="let item of getProductByCategory(catItem.id)">
+          <ion-item lines="full" button detail="false" class="no-hover">
+            <ion-avatar slot="start">
+              <img src="{{item.product.image}}" *ngIf="!offline" />
+              <div class="text-avatar" *ngIf="offline">
+                {{item.product.name.charAt(0).toUpperCase()}}
+              </div>
+            </ion-avatar>
+            <ion-label
+              (click)="addOne(item.product)"
+              class="ion-text-wrap"
+              style="line-height: 14px"
+              >{{item.product.name}}<br />
+              <small>
+                <ion-note color="primary"
+                  >{{global.currency(item.product.price)}}
+                  <ion-text *ngIf="item.product.unit != null">
+                    / {{item.product.unit.suffix}}</ion-text
+                  ></ion-note
+                ><br />
+                <ion-note *ngIf="item.product.track_stock == 1" color="dark"
+                  >Stok: {{item.stock}}</ion-note
+                >
+              </small>
+            </ion-label>
+
+            <ion-note
+              slot="end"
+              color="primary"
+              style="text-align: right; padding-top: 5px"
+            >
+              <div
+                style="
+                  display: inline-block;
+                  width: 36px;
+                  height: 20px;
+                  text-align: center;
+                "
+              >
+                <ion-icon
+                  name="remove-circle-outline"
+                  color="primary"
+                  style="font-size: 26px"
+                  (click)="removeOne(item.product)"
+                ></ion-icon>
+              </div>
+              <div
+                style="
+                  display: inline-block;
+                  width: 36px;
+                  height: 20px;
+                  text-align: center;
+                  color: #333;
+                "
+              >
+                <p style="font-size: 14px; line-height: 8px">
+                  {{showPerItemCart(item.product.id)}}<br />&nbsp;
+                </p>
+              </div>
+              <div
+                style="
+                  display: inline-block;
+                  width: 36px;
+                  height: 20px;
+                  text-align: center;
+                "
+              >
+                <ion-icon
+                  name="add-circle-outline"
+                  color="primary"
+                  style="font-size: 26px"
+                  (click)="addOne(item.product)"
+                ></ion-icon>
+              </div>
+              <ion-icon
+                *ngIf="showPerItemCart(item.product.id) > 0"
+                style="font-size: 26px"
+                name="create-outline"
+                (click)="editDetail(item.product)"
+              ></ion-icon>
+              <ion-icon
+                *ngIf="showPerItemCart(item.product.id) < 1"
+                style="font-size: 26px"
+                name="create-outline"
+                color="light"
+              ></ion-icon>
+            </ion-note>
+
+            <!-- <ion-note slot="end"><small>{{showPerItemCart(item.id)}}</small></ion-note> -->
+          </ion-item>
+          <!-- <ion-item-options side="end">
+      <ion-item-option color="light" (click)="notes(item)"><ion-icon name="list-outline"></ion-icon></ion-item-option>
+    </ion-item-options> -->
+        </ion-item-sliding>
+      </ion-item-group>
+    </div>
+    <div class="grid">
+      <div
+        class="item-product"
+        (click)="addOne(item.product)"
+        *ngFor="let item of productSearch"
+      >
+        <div class="image">
+          <img src="{{item.product.image}}" *ngIf="!offline" />
+          <div class="grid-text-avatar" *ngIf="offline">
+            {{item.product.name.charAt(0).toUpperCase()}}{{item.product.name.charAt(1).toUpperCase()}}
+          </div>
+        </div>
+        <div class="label">
+          {{item.product.name}}<br />
+          <ion-text color="primary"
+            >{{global.currency(item.product.price)}}</ion-text
+          ><br />
+          <small *ngIf="item.product.track_stock == 1"
+            >Stok: {{item.stock}}</small
+          >
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="side-cart ion-padding">
+    <div style="height: 50px; font-weight: bold">
+      <ion-text color="primary">{{company.name}}</ion-text>
+    </div>
+    <div class="item-list">
+      <ion-list>
+        <ion-item-sliding *ngFor="let item of cart">
+          <ion-item lines="full">
+            <ion-label class="ion-text-wrap">{{item.name}}</ion-label>
+            <!-- <ion-note slot="end" color="primary">{{item.qty}}</ion-note> -->
+            <ion-note
+              slot="end"
+              color="primary"
+              style="text-align: right; padding-top: 5px"
+            >
+              <div
+                style="
+                  display: inline-block;
+                  width: 36px;
+                  height: 20px;
+                  text-align: center;
+                "
+              >
+                <ion-icon
+                  name="remove-circle-outline"
+                  color="primary"
+                  style="font-size: 26px"
+                  (click)="removeOne(item)"
+                ></ion-icon>
+              </div>
+              <div
+                style="
+                  display: inline-block;
+                  width: 36px;
+                  height: 20px;
+                  text-align: center;
+                  color: #333;
+                "
+              >
+                <p style="font-size: 14px; line-height: 8px">
+                  {{item.qty}}<br />&nbsp;
+                </p>
+              </div>
+              <div
+                style="
+                  display: inline-block;
+                  width: 36px;
+                  height: 20px;
+                  text-align: center;
+                "
+              >
+                <ion-icon
+                  name="add-circle-outline"
+                  color="primary"
+                  style="font-size: 26px"
+                  (click)="addOne(item)"
+                ></ion-icon>
+              </div>
+              <ion-icon
+                style="font-size: 26px"
+                name="create-outline"
+                (click)="editDetail(item)"
+              ></ion-icon>
+            </ion-note>
+          </ion-item>
+
+          <ion-item-options side="end">
+            <ion-item-option color="light" (click)="removeOne(item)"
+              ><ion-icon name="remove-outline"></ion-icon
+            ></ion-item-option>
+            <ion-item-option color="light" (click)="addOne(item)">
+              <ion-icon name="add-outline"></ion-icon
+            ></ion-item-option>
+            <ion-item-option color="light" (click)="editDetail(item)">
+              <ion-icon name="create-outline"></ion-icon
+            ></ion-item-option>
+          </ion-item-options>
+        </ion-item-sliding>
+      </ion-list>
+    </div>
+
+    <div class="side-cart-footer">
+      <ion-grid>
+        <ion-row>
+          <ion-col size="4"
+            ><ion-button
+              color="danger"
+              fill="outline"
+              size="small"
+              expand="block"
+              (click)="clearAll()"
+              ><ion-icon
+                color="danger"
+                name="close-outline"
+              ></ion-icon></ion-button
+          ></ion-col>
+          <ion-col size="8"
+            ><ion-button
+              expand="block"
+              size="small"
+              color="dark"
+              (click)="save()"
+              [disabled]="totalAmount==0"
+              ><ion-icon name="save-outline" slot="start"></ion-icon
+              >Book</ion-button
+            ></ion-col
+          >
+          <ion-col
+            ><ion-button
+              expand="block"
+              color="primary"
+              (click)="process()"
+              [disabled]="totalAmount==0"
+              >{{global.currency(totalAmount)}}
+              <ion-badge slot="end">({{totalQty}})</ion-badge></ion-button
+            ></ion-col
+          >
+        </ion-row>
+      </ion-grid>
+    </div>
+  </div>
+</ion-content>
+<ion-content *ngIf="showContent && !showPOS" class="ion-padding" mode="ios">
+  <div style="padding: 15%; text-align: center">
+    <h5>
+      <ion-icon size="large" name="happy-outline"></ion-icon> <br /><br />
+      Opps!!, sepertinya kamu belum punya katalog produk nih, yuk tambahkan
+      katalog pertama kamu sekarang
+      <br /><br />
+      <ion-button
+        [routerLink]="['/tabs/tab-catalog']"
+        color="primary"
+        fill="outline"
+        >ke Katalog Yuk</ion-button
+      >
+    </h5>
+  </div>
+</ion-content>
+
+<ion-footer mode="ios" *ngIf="showPOS" class="phone-mode-footer">
+  <ion-grid>
+    <ion-row>
+      <ion-col size="2"
+        ><ion-button color="light" expand="block" (click)="clearAll()"
+          ><ion-icon color="danger" name="close-outline"></ion-icon></ion-button
+      ></ion-col>
+      <ion-col size="4"
+        ><ion-button
+          expand="block"
+          color="light"
+          (click)="save()"
+          [disabled]="totalAmount==0"
+          ><ion-icon name="save-outline" slot="start"></ion-icon
+          >Book</ion-button
+        ></ion-col
+      >
+      <ion-col size="6"
+        ><ion-button
+          expand="block"
+          color="primary"
+          (click)="process()"
+          [disabled]="totalAmount==0"
+          >{{global.currency(totalAmount)}}
+          <ion-badge slot="end">({{totalQty}})</ion-badge></ion-button
+        ></ion-col
+      >
+    </ion-row>
+  </ion-grid>
+</ion-footer>

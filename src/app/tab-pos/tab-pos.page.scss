@@ -1,0 +1,141 @@
+.clickable {
+pointer-events: auto !important;
+}
+
+.text-center {
+  text-align: center;
+}
+
+@media screen and (min-width: 720px) {
+
+  .product-content {
+    width:65%;
+    float:left;
+  }
+
+  .product-content .list {
+    visibility: hidden;
+    display: none;
+  }
+
+  .product-content .grid {
+    visibility: visible;
+  }
+
+  .product-content .grid .item-product {
+    height: 220px;
+    width: 24%;
+    margin:0.5%;
+    float:left;
+    border:1px solid #f5f5f5;
+    cursor: pointer;
+  }
+
+  .product-content .grid .item-product .image {
+    background: #f5f5f5;
+    height: 140px;
+    overflow: hidden;
+  }
+
+  .product-content .grid .item-product .label {
+    padding:10px;
+    text-align: center;
+    font-size: 70%;
+  }
+
+  .product-content .grid .item-product .grid-text-avatar {
+    padding:20px;
+    padding-top: 40px;
+    font-size: 50px;
+    color:#666;
+    text-align: center;
+  }
+
+  .side-cart {
+    background-color: #f5f5f5;
+    width:35%;
+    border-left:2px solid #ddd;
+    height:100%;
+    position: fixed;
+    right:0;
+    top:0;
+    bottom:0;
+    overflow:scroll;
+  }
+
+  .side-cart .item-list {
+    height:65%;
+    overflow: scroll;
+  }
+
+  .side-cart-footer {
+
+    width:100%;
+    // position: fixed;
+    right:0;
+    bottom:0;
+  }
+
+  .phone-mode-footer {
+    display: none;
+  }
+
+  .type-order-tab {
+    visibility: visible;
+    display: inherit;
+  }
+
+  .type-order-mobile {
+    visibility: hidden;
+    display: none;
+  }
+
+  .search-pos {
+    margin-top:10px;
+    margin-left:5px;
+    width:300px;
+  }
+}
+
+@media screen and (max-width: 719px) {
+
+  .product-content {
+    width:100%;
+    float:none;
+  }
+
+  .product-content .list {
+    visibility: visible;
+  }
+
+  .product-content .grid {
+    visibility: hidden;
+    display: none;
+  }
+
+  .side-cart {
+    visibility: hidden;
+    display: none;
+  }
+
+  .phone-mode-footer {
+    display: block;
+  }
+
+  .type-order-tab {
+    visibility:hidden;
+    display: none;
+  }
+
+  .type-order-mobile {
+    visibility: visible;
+    display: block;
+  }
+
+  .search-pos {
+    margin-top:10px;
+    margin-left:5px;
+    width:100%;
+  }
+
+}

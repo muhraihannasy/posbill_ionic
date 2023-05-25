@@ -1,0 +1,106 @@
+<ion-content class="ion-no-padding" mode="ios">
+  <ion-card style="margin-top: 20px; margin-bottom: 10px">
+    <ion-card-header color="primary">
+      <ion-card-subtitle>
+        {{company.name}}
+        <span style="float: right">
+          <ion-badge color="dark">Lite</ion-badge>
+        </span>
+      </ion-card-subtitle>
+    </ion-card-header>
+  </ion-card>
+
+  <h5 class="title-info-posbill">
+    Ringkasan penjualan
+
+    <span style="float: right">
+      <ion-text color="primary">Lihat laporan penjualan</ion-text>
+    </span>
+  </h5>
+
+  <ion-card>
+    <!-- <ion-card-header color="primary">
+        <ion-card-subtitle color="light">
+          Ringkasan penjualan
+        </ion-card-subtitle>
+      </ion-card-header> -->
+
+    <ion-card-content>
+      <ion-grid>
+        <ion-row>
+          <ion-col size="6">
+            <h6>Hari ini {{ date }}</h6>
+            <div style="border-top: 1px solid #ccc; margin: 7px 0px"></div>
+            <h2>
+              <ion-text color="primary">{{ summary_today_price }}</ion-text>
+            </h2>
+            <h5>
+              <ion-text color="dark">{{summary_today_items }} Items</ion-text>
+            </h5>
+          </ion-col>
+          <ion-col size="6">
+            <h6>Bulan ini (Mei 2022)</h6>
+            <div style="border-top: 1px solid #ccc; margin: 7px 0px"></div>
+            <h2>
+              <ion-text color="primary">{{ summary_month_price }}</ion-text>
+            </h2>
+            <h5>
+              <ion-text color="dark">{{ summary_month_items }} Items</ion-text>
+            </h5>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card-content>
+  </ion-card>
+
+  <h5 class="title-info-posbill">Ringkasan order</h5>
+  <ion-card>
+    <!-- <ion-card-header color="primary">
+        <ion-card-subtitle color="light">
+          Pesanan terbaru
+        </ion-card-subtitle>
+      </ion-card-header> -->
+
+    <ion-card-content>
+      <ion-list>
+        <ion-item lines="full" detail [routerLink]="['/booking']">
+          <ion-icon slot="start" name="save-outline" color="primary"></ion-icon>
+          <ion-label>Booking</ion-label>
+          <ion-badge slot="end" color="primary">{{ amount_booking }}</ion-badge>
+        </ion-item>
+        <ion-item
+          lines="none"
+          detail
+          (click)="onCoba()"
+          style="cursor: pointer"
+        >
+          <ion-icon slot="start" name="cart-outline" color="primary"></ion-icon>
+          <ion-label>Pesanan belum lunas</ion-label>
+          <ion-badge slot="end" color="primary"
+            >{{ amount_order_notPaid }}</ion-badge
+          >
+        </ion-item>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+
+  <h5 class="title-info-posbill">Informasi Posbill</h5>
+
+  <ion-slides pager="true" [options]="slideOpts">
+    <ion-slide
+      [routerLink]="['/information-detail/4daf2177-a4ce-411e-8485-47f53395c51b']"
+    >
+      <img src="https://via.placeholder.com/800x400" />
+    </ion-slide>
+    <ion-slide
+      [routerLink]="['/information-detail/4daf2177-a4ce-411e-8485-47f53395c51b']"
+    >
+      <img src="https://via.placeholder.com/800x400" />
+    </ion-slide>
+    <ion-slide
+      [routerLink]="['/information-detail/4daf2177-a4ce-411e-8485-47f53395c51b']"
+    >
+      <img src="https://via.placeholder.com/800x400" />
+    </ion-slide>
+  </ion-slides>
+</ion-content>

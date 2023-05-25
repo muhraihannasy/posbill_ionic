@@ -1,0 +1,42 @@
+<ion-header mode="ios">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button fill="link" [routerLink]="['/setting/format-printer']"><ion-icon name="arrow-back-outline"></ion-icon></ion-button>
+    </ion-buttons>
+    <ion-title>Printer</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content mode="ios" class="ion-padding">
+
+    <ion-button expand="block" color="light" (click)="scan()">Scan printer</ion-button>
+
+    <ion-item-divider>Printer Kasir (nota pelanggan)</ion-item-divider>
+    <ion-radio-group [(ngModel)]="deviceChoose">
+      <ion-item *ngFor="let item of device">
+        <ion-label>{{item.name}} <br/><small>{{item.address}}</small></ion-label>
+        <ion-radio slot="start" value="{{item.address}}"></ion-radio>
+      </ion-item>
+
+    </ion-radio-group>
+
+    <ion-item-divider>Printer Order (nota order)</ion-item-divider>
+
+    <ion-radio-group [(ngModel)]="device2Choose" *ngIf="company.package == 'Premium'">
+      <ion-item *ngFor="let item of device">
+        <ion-label>{{item.name}} <br/><small>{{item.address}}</small></ion-label>
+        <ion-radio slot="start" value="{{item.address}}"></ion-radio>
+      </ion-item>
+
+    </ion-radio-group>
+
+    <p class="ion-text-center" *ngIf="company.package == 'Lite'">
+      <ion-text color="primary">Printer order tersedia dalam versi premium</ion-text>
+    </p>
+
+
+</ion-content>
+
+<ion-footer class="ion-padding" mode="ios">
+    <ion-button expand="block" (click)="process()" [disabled]="deviceChoose == ''">Simpan</ion-button>
+</ion-footer>

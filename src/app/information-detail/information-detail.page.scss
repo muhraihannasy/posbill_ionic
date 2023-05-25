@@ -1,0 +1,28 @@
+.article-container {
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
+
+  .article-image {
+    width: 100%;
+    height: auto;
+    margin-bottom: 16px;
+    border-radius: 1em;
+  }
+
+  h2 {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 1em;
+  }
+
+  .article-details .article-date {
+    font-size: 14px;
+    color: gray;
+    margin-bottom: 16px;
+  }
+
+  .article-details .article-content {
+    font-size: 16px;
+  }
+}

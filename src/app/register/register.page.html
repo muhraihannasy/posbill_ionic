@@ -1,0 +1,109 @@
+<ion-content mode="ios">
+
+<div class="ion-padding" *ngIf="!showForm">
+  <div style="height:50px;"></div>
+  <div class="ion-padding">
+    <div class="ion-padding">
+    <div class="ion-text-center"><img src="assets/logo-horizontal.png" width="150px" />  </div>
+    <div style="height:30px;"></div>
+    <ion-item><ion-label color="primary">Buat akun POSbill GRATIS</ion-label></ion-item>
+    <ion-item><ion-label class="ion-text-wrap"><small>Saya setuju dengan syarat dan ketentuan penggunaan aplikasi POSbill. <a href="https://posbill.id/syarat-ketentuan">Baca syarat ketentuan</a></small></ion-label><ion-checkbox slot="end" [(ngModel)]="terms"></ion-checkbox></ion-item>
+    <ion-item lines="none"><ion-label class="ion-text-wrap"><small>Saya telah membaca kebijakan privasi aplikasi POSbill.  <a href="https://posbill.id/kebijakan-privasi">Baca kebijakan privasi</a></small></ion-label><ion-checkbox slot="end" [(ngModel)]="privacy"></ion-checkbox></ion-item>
+
+    <div style="height:50px;"></div>
+    <ion-button expand="block" color="danger" (click)="loginByGoogle()" [disabled]="!terms || !privacy">
+      <ion-icon name="logo-google" slot="start"></ion-icon>
+      Daftar by Google</ion-button>
+    </div>
+  </div>
+</div>
+
+<div class="ion-padding register-body" *ngIf="showForm">
+<div>
+  <p style="text-align:center;"><ion-text color="primary">Daftar POSBill</ion-text></p>
+    <ion-item>
+      <ion-label position="stacked"><small>Email</small></ion-label>
+      <ion-input type="email" class="input-text" size="large" [(ngModel)]="email"  readonly></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked"><small>Nama lengkap</small></ion-label>
+      <ion-input class="input-text" size="large" [(ngModel)]="name" autocapitalize="on"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked"><small>Nama usaha atau brand</small></ion-label>
+      <ion-input class="input-text" size="large" [(ngModel)]="companyName" autocapitalize="on"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked"><small>Jenis usaha</small></ion-label>
+      <ion-select  interface="action-sheet" [(ngModel)]="business_type_id">
+        <ion-select-option value="">- Pilih jenis usaha -</ion-select-option>
+        <ion-select-option *ngFor="let item of businessType" value="{{item.id}}">{{item.name}}</ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked"><small>Handphone</small></ion-label>
+      <ion-input type="tel" class="input-text" size="large" [(ngModel)]="phone"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked"><small>Password</small></ion-label>
+      <ion-input type="password" class="input-text" size="large" [(ngModel)]="password"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked"><small>Ulangi Password</small></ion-label>
+      <ion-input type="password" class="input-text" size="large" [(ngModel)]="repassword"></ion-input>
+    </ion-item>
+    <br/>
+    <ion-item-divider>Data outlet</ion-item-divider>
+    <ion-item>
+      <ion-label position="stacked"><small>Nama outlet</small></ion-label>
+      <ion-input class="input-text" size="large" [(ngModel)]="outlet.name" autocapitalize="on"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked"><small>Alamat</small></ion-label>
+      <ion-input class="input-text" size="large" [(ngModel)]="outlet.address"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked"><small>Provinsi</small></ion-label>
+      <ion-select interface="action-sheet" [(ngModel)]="outlet.province_id" (ionChange)="getCity()">
+        <ion-select-option value="">- Pilih provinsi -</ion-select-option>
+        <ion-select-option *ngFor="let prov of province" value="{{prov.id}}">{{prov.name}}</ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked"><small>Kota</small></ion-label>
+      <ion-select interface="action-sheet" [(ngModel)]="outlet.city_id" (ionChange)="getSubdistrict()">
+        <ion-select-option *ngFor="let c of city" [value]="c.id">{{c.name}}</ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked"><small>Kecamatan</small></ion-label>
+      <ion-select interface="action-sheet" [(ngModel)]="outlet.subdistrict_id">
+        <ion-select-option *ngFor="let sub of subdistrict" [value]="sub.id">{{sub.name}}</ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked"><small>Telepon</small></ion-label>
+      <ion-input class="input-text" size="large" type="tel" [(ngModel)]="outlet.phone"></ion-input>
+    </ion-item>
+
+    </div>
+    <br/>
+
+    <ion-grid>
+      <ion-row>
+        <ion-col size="6">
+          <ion-button expand="block" (click)="process('Premium')">Coba versi <br/>Premium 30 Hari</ion-button>
+        </ion-col>
+        <ion-col size="6">
+          <ion-button expand="block" fill="outline" (click)="process('Lite')">Daftar versi Lite <br/>GRATIS</ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+
+
+    <br/>
+    <ion-button expand="block" color="dark" size="small" fill="link" [routerLink]="['/login']">Kembali ke login</ion-button>
+    <br/>
+</div>
+</ion-content>

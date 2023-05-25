@@ -1,0 +1,39 @@
+
+  <ion-content class="ion-padding" mode="ios" *ngIf="showContent">
+    <ion-list-header><ion-label>Ubah profil akun</ion-label></ion-list-header>
+        <ion-item lines="none">
+          <ion-label position="stacked" color="primary">Nama</ion-label>
+          <ion-input [(ngModel)]="user.name" autocapitalize="on"></ion-input>
+        </ion-item>
+        <ion-item lines="none" >
+          <ion-label position="stacked" color="primary">Email</ion-label>
+          <ion-input type="email" [(ngModel)]="user.email"></ion-input>
+        </ion-item>
+        <ion-item lines="none" >
+          <ion-label position="stacked" color="primary">Telepon</ion-label>
+          <ion-input type="tel" [(ngModel)]="user.phone"></ion-input>
+        </ion-item>
+        <ion-item lines="none">
+          <ion-label color="primary" position="stacked">Nama bisnis</ion-label>
+          <ion-input [(ngModel)]="company.name" autocapitalize="on"></ion-input>
+        </ion-item>
+        <ion-item lines="none">
+          <ion-label color="primary" position="stacked">Alamat bisnis</ion-label>
+          <ion-input [(ngModel)]="company.address"></ion-input>
+        </ion-item>
+
+        <ion-list-header>
+          <ion-label>Ganti password</ion-label></ion-list-header>
+        <ion-item lines="none">
+          <ion-label color="primary" position="stacked">Password</ion-label>
+          <ion-input type="password" [(ngModel)]="password"></ion-input>
+        </ion-item>
+        <ion-item lines="none" >
+          <ion-label color="primary" position="stacked">Ulangi password</ion-label>
+          <ion-input type="password" [(ngModel)]="repassword"></ion-input>
+        </ion-item>
+
+  </ion-content>
+  <ion-footer class="ion-padding" mode="ios" (click)="process()" *ngIf="showContent">
+    <ion-button expand="block">Simpan</ion-button>
+  </ion-footer>

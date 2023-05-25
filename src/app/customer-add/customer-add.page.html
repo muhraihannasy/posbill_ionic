@@ -1,0 +1,29 @@
+<ion-header mode="ios">
+
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button fill="link" [routerLink]="['/customer']"><ion-icon name="arrow-back-outline"></ion-icon></ion-button>
+    </ion-buttons>
+    <ion-title>Tambah pelanggan</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content mode="ios" class="ion-padding">
+
+  <ion-item>
+    <ion-label position="stacked">Nama*</ion-label>
+    <ion-input type="text" [(ngModel)]="customer.name" autocapitalize="on"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label position="stacked">Telepon*</ion-label>
+    <ion-input type="tel" [(ngModel)]="customer.phone"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label position="stacked">Email</ion-label>
+    <ion-input type="email" [(ngModel)]="customer.email"></ion-input>
+  </ion-item>
+
+</ion-content>
+<ion-footer class="ion-padding" mode="ios">
+    <ion-button expand="block" (click)="process()">Simpan</ion-button>
+</ion-footer>

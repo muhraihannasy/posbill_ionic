@@ -1,0 +1,43 @@
+<ion-item lines="none" color="success">
+  <ion-icon name="checkmark-circle-outline" slot="end"></ion-icon>
+  Transaksi berhasil ditambahkan
+</ion-item>
+<ion-content mode="ios" class="ion-padding">
+
+  <ion-list>
+    <ion-item lines="none"><ion-label class="ion-text-wrap">No order <br/><small>25-Jan-2021 14:08</small></ion-label><ion-note slot="end" color="primary">210800001</ion-note></ion-item>
+    <ion-item lines="full"><small>Pelanggan</small> <ion-note slot="end" color="primary"><small>Walk-in</small></ion-note></ion-item>
+    <ion-item lines="none"><small>Hazelnut Chocolate Cheese <br/>15.000 x 2</small><ion-note slot="end"><small>Rp230.000</small></ion-note></ion-item>
+    <ion-item lines="none"><small>Avocado Milk Cheese <br/>15.000 x 2</small><ion-note slot="end"><small>Rp230.000</small></ion-note></ion-item>
+    <ion-item lines="none"><small>Caramel Latte Cheese <br/>15.000 x 2</small><ion-note slot="end"><small>Rp230.000</small></ion-note></ion-item>
+    <ion-item lines="full"><small>Thai Tea Cheese <br/>15.000 x 2</small><ion-note slot="end"><small>Rp230.000</small></ion-note></ion-item>
+    <ion-item lines="none"><small>Subtotal </small><ion-note slot="end"><small>Rp230.000</small></ion-note></ion-item>
+    <ion-item lines="none"><small>Diskon </small><ion-note slot="end"><small>Rp230.000</small></ion-note></ion-item>
+    <ion-item lines="none"><small>Service charge </small><ion-note slot="end"><small>Rp230.000</small></ion-note></ion-item>
+    <ion-item lines="full"><small>Pajak </small><ion-note slot="end"><small>Rp230.000</small></ion-note></ion-item>
+    <ion-item lines="none">Total<ion-note slot="end">Rp230.000</ion-note></ion-item>
+  </ion-list>
+
+</ion-content>
+
+<ion-footer class="ion-padding" mode="ios">
+  <ion-grid>
+    <ion-row>
+      <ion-col><ion-button expand="block" fill="outline">
+        <ion-icon name="arrow-redo-outline" slot="start"></ion-icon>
+        Kirim nota
+      </ion-button>
+      </ion-col>
+      <ion-col><ion-button expand="block" (click)="printReceipt()">
+        <ion-icon name="print-outline" slot="start"></ion-icon>
+        Cetak nota
+      </ion-button>
+      </ion-col>
+      <ion-col><ion-button expand="block" color="light" [routerLink]="['/tabs/tab1']">
+        <ion-icon name="print-outline" slot="start"></ion-icon>
+        Kembali ke POS
+      </ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-footer>

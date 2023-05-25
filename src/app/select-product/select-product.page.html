@@ -1,0 +1,18 @@
+<ion-header mode="ios" *ngIf="showContent">
+
+    <ion-searchbar (ionInput)="filterList($event)" placeholder="Cari produk"></ion-searchbar>
+
+</ion-header>
+
+<ion-content mode="ios" *ngIf="showContent">
+  <ion-list  *ngFor="let catItem of category">
+    <ion-item-divider *ngIf="getProductByCategory(catItem.id).length > 0">{{catItem.name}}</ion-item-divider>
+    <ion-item button *ngFor="let item of getProductByCategory(catItem.id)" (click)="choose(item)">
+      <ion-avatar slot="start">
+        <img src="{{item.image}}" />
+      </ion-avatar>
+      <ion-label>{{item.name}}</ion-label>
+      <ion-note slot="end"><small>{{global.currency(item.price)}}</small></ion-note>
+    </ion-item>
+  </ion-list>
+</ion-content>

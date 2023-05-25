@@ -1,0 +1,115 @@
+
+<ion-header mode="ios">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button fill="link" [routerLink]="['/catalog-product']"><ion-icon name="arrow-back-outline"></ion-icon></ion-button>
+    </ion-buttons>
+    <ion-title>Ubah produk</ion-title>
+    <ion-buttons slot="end">
+      <ion-button fill="link" color="danger" (click)="deleteConfirm()" ><ion-icon name="trash-outline" color="danger"></ion-icon></ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="ion-padding" mode="ios" *ngIf="showContent">
+
+
+    <div (click)="takePicture()" style="width:200px;height:200px;margin-left:auto;margin-right:auto;margin-bottom:20px;border-radius:5px;overflow:hidden;border:1px #f5f5f5 solid;">
+      <img src="{{product.image}}" />
+    </div>
+
+  <ion-item lines="inset">
+    <ion-label color="primary"><small>Kategori*</small></ion-label>
+    <ion-select interface="action-sheet" [(ngModel)]="product.category_id" name="category_id">
+      <ion-select-option *ngFor="let item of category" value="{{item.id}}">{{item.name}}</ion-select-option>
+    </ion-select>
+  </ion-item>
+  <ion-item lines="none">
+    <ion-label position="stacked" color="primary">SKU</ion-label>
+    <ion-input type="text" [(ngModel)]="product.sku" name="sku" autocapitalize="on" readonly></ion-input>
+  </ion-item>
+  <ion-item lines="none">
+    <ion-label position="stacked" color="primary">Nama produk*</ion-label>
+    <ion-input type="text" [(ngModel)]="product.name" name="name" autocapitalize="on"></ion-input>
+  </ion-item>
+
+  <ion-item lines="none">
+    <ion-label position="stacked" color="primary">Deskripsi</ion-label>
+    <ion-textarea  [(ngModel)]="product.description" name="description" autocapitalize="on"></ion-textarea>
+  </ion-item>
+  <ion-item lines="none">
+    <ion-label position="stacked" color="primary" >Modal</ion-label>
+    <ion-input type="number" [(ngModel)]="product.cost" name="cost"></ion-input>
+  </ion-item>
+  <ion-item lines="none">
+    <ion-label position="stacked" color="primary" >Harga*</ion-label>
+    <ion-input type="number" [(ngModel)]="product.price" name="price"></ion-input>
+  </ion-item>
+  <br/>
+  <ion-item-divider>
+    Harga per tipe pesanan
+  </ion-item-divider>
+  <ion-item lines="none" *ngIf="company.order_type1">
+    <ion-label position="stacked" color="primary">{{company.order_type_label1}}</ion-label>
+    <ion-input type="number" [(ngModel)]="product.price_type1" name="price_type1"></ion-input>
+  </ion-item>
+  <ion-item lines="none" *ngIf="company.order_type2">
+    <ion-label position="stacked" color="primary">{{company.order_type_label2}}</ion-label>
+    <ion-input type="number" [(ngModel)]="product.price_type2" name="price_type2"></ion-input>
+  </ion-item>
+  <ion-item lines="none" *ngIf="company.order_type3">
+    <ion-label position="stacked" color="primary">{{company.order_type_label3}}</ion-label>
+    <ion-input type="number" [(ngModel)]="product.price_type3" name="price_type3"></ion-input>
+  </ion-item>
+  <ion-item lines="none" *ngIf="company.order_type4">
+    <ion-label position="stacked" color="primary">{{company.order_type_label4}}</ion-label>
+    <ion-input type="number" [(ngModel)]="product.price_type4" name="price_type4"></ion-input>
+  </ion-item>
+  <ion-item lines="none" *ngIf="company.order_type5">
+    <ion-label position="stacked" color="primary">{{company.order_type_label5}}</ion-label>
+    <ion-input type="number" [(ngModel)]="product.price_type5" name="price_type5"></ion-input>
+  </ion-item>
+  <br/>
+  <ion-item-divider>
+    Ketersediaan & Inventori &nbsp; <small><ion-text color="danger">Beta</ion-text></small>
+  </ion-item-divider>
+
+  <ion-item>
+    <ion-label>Aktifkan inventori </ion-label>
+    <ion-toggle [(ngModel)]="product.track_stock" name="track_stock"></ion-toggle>
+  </ion-item>
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <ion-item lines="none">
+          <small>Outlet</small>
+        </ion-item>
+      </ion-col>
+      <ion-col size="3" *ngIf="product.track_stock">
+        <ion-item lines="none">
+          <small>Stok saat ini</small>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row *ngFor="let item of product.stock">
+      <ion-col>
+        <ion-item>
+          <ion-checkbox slot="start" [(ngModel)]="item.enabled"></ion-checkbox>
+          <ion-label class="ion-text-wrap">{{item.name}} {{item.stock}}</ion-label>
+        </ion-item>
+      </ion-col>
+      <ion-col size="3" style="text-align:right;" *ngIf="product.track_stock">
+        <ion-input style="text-align:center;margin-top:5px;"   name="outlet_stock[]" type="number" value="{{item.stock}}" readonly></ion-input></ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col><ion-button color="light" size="small" expand="block" [routerLink]="['/catalog-product-stock/'+id+'/addition']">Penambahan stok</ion-button></ion-col>
+      <ion-col><ion-button color="light" size="small" expand="block" [routerLink]="['/catalog-product-stock/'+id+'/deduction']">Pengurangan stok</ion-button></ion-col>
+    </ion-row>
+  </ion-grid>
+
+
+</ion-content>
+
+<ion-footer class="ion-padding" mode="ios">
+  <ion-button expand="block" (click)="process()">Simpan</ion-button>
+</ion-footer>

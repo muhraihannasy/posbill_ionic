@@ -1,0 +1,29 @@
+
+@media screen and (min-width: 720px) {
+  .tab-div {
+     margin-bottom:-50px;
+  }
+  .tab-pane {
+    margin-top:-105px;
+    width:348px;
+    margin-left:-2px;
+    // margin-right:auto;
+    border:1px solid #ccc;
+    border-radius:0px 10px 0px 0px;
+  }
+}
+
+@media screen and (max-width: 719px) {
+  .tab-div {
+     margin-bottom:0;
+  }
+  .tab-pane {
+    margin-top:0;
+    width:100%;
+    margin-left:none;
+    margin-right:none;
+    border:none;
+    border-top:1px solid #ccc;
+    border-radius:none;
+  }
+}

@@ -1,0 +1,18 @@
+<ion-header mode="ios">
+
+    <ion-searchbar (ionInput)="filterList($event)" placeholder="Cari diskon"></ion-searchbar>
+    <div>
+    <ion-button fill="link" color="primary" expand="block" (click)="choose({id:'',amount:0,type:'Fixed'})"><ion-text color="primary">Tanpa diskon</ion-text></ion-button>
+    </div>
+</ion-header>
+
+<ion-content mode="ios">
+
+  <ion-list>
+    <ion-item button *ngFor="let item of discountSearch" (click)="choose(item)">
+      <ion-label>{{item.name}}</ion-label>
+      <ion-note slot="end"><small>{{item.amount}}</small></ion-note>
+    </ion-item>
+  </ion-list>
+
+</ion-content>

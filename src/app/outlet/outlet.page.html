@@ -1,0 +1,59 @@
+<ion-header mode="ios">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button fill="link" [routerLink]="['/tabs/tab-setting']"><ion-icon name="arrow-back-outline"></ion-icon></ion-button>
+    </ion-buttons>
+    <ion-title style="font-size:13px; line-height:13px;">Info berlangganan & Outlet</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content mode="ios" class="ion-padding">
+
+  <ion-card color="light">
+    <ion-card-content color="light">
+      <ion-item lines="none" color="light">
+        <ion-label>{{company.name}} <br/> <ion-text style="font-size:13px;">Versi berlangganan</ion-text></ion-label>
+        <ion-text slot="end"><strong>{{company.package}}</strong></ion-text>
+      </ion-item>
+    </ion-card-content>
+  </ion-card>
+
+
+  <ion-card>
+    <ion-card-content class="ion-no-padding">
+      <ion-list>
+        <ion-item lines="full" *ngFor="let item of outlet" [routerLink]="['/outlet-detail/'+item.outlet.id]" >
+          <ion-label>{{item.outlet.name}} <br/><small *ngIf="company.package == 'Premium'">Masa aktif s/d : {{item.outlet.expired_at}}</small>
+            <small *ngIf="company.package == 'Lite'"><ion-text color="primary">Upgrade ke Premium</ion-text></small>
+            <!-- <br/>
+            <ion-button *ngIf="item.outlet.status == 'Expired' || item.outlet.status == 'Active'">Perpanjang</ion-button>
+            <ion-button (click)="pay(item.outlet.subscription.payment_url)" *ngIf="item.outlet.status == 'Pending'" color="dark">Bayar</ion-button>
+            <ion-button [routerLink]="['/outlet-detail/'+item.outlet.id]" color="light">Detail</ion-button> -->
+          </ion-label>
+
+          <ion-note slot="end" color="success" *ngIf="item.outlet.status == 'Active'"><small>{{item.outlet.status}}</small></ion-note>
+          <ion-note slot="end" color="danger" *ngIf="item.outlet.status == 'Expired'"><small>{{item.outlet.status}}</small></ion-note>
+          <ion-note slot="end" color="warning" *ngIf="item.outlet.status == 'Pending'"><small>{{item.outlet.status}}</small></ion-note>
+        </ion-item>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+
+
+
+  <!-- <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+   <ion-fab-button [routerLink]="['/outlet-add']">
+     <ion-icon name="add-outline"></ion-icon>
+   </ion-fab-button>
+ </ion-fab> -->
+
+ <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+  <ion-fab-button [routerLink]="['/outlet-add']" *ngIf="company.package == 'Premium'">
+    <ion-icon name="add-outline"></ion-icon>
+  </ion-fab-button>
+  <ion-fab-button (click)="showToastLite()" *ngIf="company.package == 'Lite'">
+    <ion-icon name="add-outline"></ion-icon>
+  </ion-fab-button>
+</ion-fab>
+
+</ion-content>

@@ -1,0 +1,56 @@
+<ion-header mode="ios">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button fill="link" [routerLink]="['/user']"><ion-icon name="arrow-back-outline"></ion-icon></ion-button>
+    </ion-buttons>
+    <ion-title>Ubah pengguna</ion-title>
+    <ion-buttons slot="end">
+      <ion-button fill="link" color="danger" (click)="deleteConfirm()" ><ion-icon name="trash-outline" color="danger"></ion-icon></ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content mode="ios" class="ion-padding">
+
+  <ion-item lines="inset">
+    <ion-label><small>Level</small></ion-label>
+    <ion-text slot="end">{{user.level}}</ion-text>
+  </ion-item>
+  <ion-item>
+    <ion-label position="stacked">Nama</ion-label>
+    <ion-input type="text" [(ngModel)]="user.name" autocapitalize="on"></ion-input>
+  </ion-item>
+
+  <ion-item *ngIf="user.level == 'Cashier'">
+    <ion-label position="stacked">Username</ion-label>
+    <ion-input type="text" [(ngModel)]="user.email" readonly></ion-input>
+  </ion-item>
+
+  <ion-item *ngIf="user.level == 'Cashier'">
+    <ion-label position="stacked">PIN</ion-label>
+    <ion-input type="tel" [(ngModel)]="user.changepassword"></ion-input>
+  </ion-item>
+
+  <ion-item *ngIf="user.level == 'Admin'">
+    <ion-label position="stacked">Email</ion-label>
+    <ion-input type="text" [(ngModel)]="user.email"></ion-input>
+  </ion-item>
+
+  <ion-item *ngIf="user.level == 'Admin'">
+    <ion-label position="stacked">Password</ion-label>
+    <ion-input type="password" [(ngModel)]="user.changepassword"></ion-input>
+  </ion-item>
+
+  <ion-list>
+  <ion-list-header>Akses outlet</ion-list-header>
+  <ion-item *ngFor="let item of outlet">
+    <ion-label><small>{{item.name}}</small></ion-label>
+    <ion-toggle [(ngModel)]="item.select"></ion-toggle>
+  </ion-item>
+  </ion-list>
+
+</ion-content>
+
+<ion-footer class="ion-padding" mode="ios">
+    <ion-button expand="block" (click)="process()">Simpan</ion-button>
+</ion-footer>

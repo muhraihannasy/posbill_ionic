@@ -1,0 +1,56 @@
+<ion-header mode="ios">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button fill="link" [routerLink]="['/tabs/tab-setting']"><ion-icon name="arrow-back-outline"></ion-icon></ion-button>
+    </ion-buttons>
+    <ion-title slot="start">Info berlangganan</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content mode="ios" class="ion-padding">
+
+  <ion-card>
+    <ion-card-content>
+      <ion-item lines="none">
+        <ion-label>Nama bisnis</ion-label>
+        <ion-note slot="end" color="primary">{{company.name}}</ion-note>
+      </ion-item>
+      <ion-item lines="none">
+        <ion-label>Paket</ion-label>
+        <ion-badge color="dark" *ngIf="company.package == 'Free'" slot="end">{{company.package}}</ion-badge>
+        <ion-badge color="primary" *ngIf="company.package == 'Premium'" slot="end">{{company.package}}</ion-badge>
+      </ion-item>
+      <ion-item lines="none">
+        <ion-label>Status</ion-label>
+        <ion-badge color="success" *ngIf="company.status == 'Active'" slot="end">{{company.status}}</ion-badge>
+        <ion-badge color="danger" *ngIf="company.status == 'Inactive'" slot="end">{{company.status}}</ion-badge>
+      </ion-item>
+      <ion-item lines="none" *ngIf="company.package != 'Free'">
+        <ion-label class="ion-text-wrap">Masa berlaku hingga</ion-label>
+        <ion-note color="dark" slot="end">{{company.expired_at}}</ion-note>
+      </ion-item>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-subtitle>Beli paket berlangganan</ion-card-subtitle>
+    </ion-card-header>
+    <ion-card-content>
+
+      <ion-item lines="full" button (click)="purchase('Premium',6)">
+        <ion-label class="ion-text-wrap"><strong>Premium 6 bulan </strong><br/>
+          <small>Harga Rp79.000 / bulan</small>
+        </ion-label>
+        <ion-text color="primary" slot="end">Rp474.000</ion-text>
+      </ion-item>
+      <ion-item lines="none" button (click)="purchase('Premium',12)">
+        <ion-label class="ion-text-wrap"><strong>Premium 1 tahun </strong><br/>
+          <small>Harga <strong>Rp59.000</strong> / bulan <br/><ion-badge color="success"><strong>Hemat 25%</strong></ion-badge></small>
+        </ion-label>
+        <ion-text color="primary" slot="end">Rp708.000</ion-text>
+      </ion-item>
+    </ion-card-content>
+  </ion-card>
+
+</ion-content>
