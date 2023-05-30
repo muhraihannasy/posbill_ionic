@@ -172,6 +172,8 @@ export class TabDashboardPage {
     console.log(explodeDateNow);
     this.dateNow = explodeDateNow[1] + " " + explodeDateNow[0];
     this.monthNow = formattedMonth;
+
+    console.log(this.amount_booking, this.amount_order_notPaid);
   }
 
   getDataCompany() {

@@ -97,7 +97,9 @@ export class CatalogProductEditPage implements OnInit {
     });
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    console.log(this.product.track_stock, "data track stock ni ");
+  }
 
   ionViewWillEnter() {
     this.storage.getObject("auth").then((auth) => {
@@ -417,8 +419,9 @@ export class CatalogProductEditPage implements OnInit {
       )
       .subscribe(
         (data: any) => {
-          this.storage.setObject("status_inventory", data.track_stock);
-          this.product.track_stock = data.track_stock;
+          const status = data.track_stock == 1 ? true : false;
+          this.storage.setObject("status_inventory", status);
+          this.product.track_stock = status;
         },
         (error) => {
           console.log(error);
