@@ -1,4 +1,4 @@
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Component, OnInit } from "@angular/core";
 import { GlobalService } from "../global.service";
 import { ActivatedRoute, Router } from "@angular/router";
@@ -19,12 +19,14 @@ export class InformationDetailPage implements OnInit {
   source: any;
   auth: any;
   showContent: any = false;
+  baseUrl = this.global.base_url;
   disabledAnimation: any = false;
   src: any = "https://via.placeholder.com/800x400";
 
   company: any;
   outlet: any;
   user: any;
+  information: any = "";
 
   constructor(
     private http: HttpClient,
@@ -42,31 +44,37 @@ export class InformationDetailPage implements OnInit {
         this.id = params["id"];
       }
     });
-
-    console.log(this.id);
   }
 
   ionViewWillEnter() {
     this.showContent = false;
     this.platform.ready().then(() => {
-      this.storage.getObject("company").then((company: any) => {
-        this.company = company;
-      });
-
-      this.storage.getObject("outlet_active").then((outlet: any) => {
-        this.outlet = outlet;
-      });
-
-      this.storage.getObject("user").then((user: any) => {
-        this.user = user;
-      });
-
       this.storage.getObject("auth").then((auth: any) => {
         this.auth = auth;
+        this.getData();
       });
 
       this.showContent = true;
     });
+  }
+
+  getData() {
+    var reqHeader = new HttpHeaders({
+      "Content-Type": "application/json",
+      Authorization: "Bearer " + this.auth.token,
+    });
+
+    let options = { headers: reqHeader };
+    this.http
+      .get(this.global.base_url + "auth/information/" + this.id, options)
+      .subscribe(
+        (data: any) => {
+          this.information = data?.information;
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
   }
 
   goBackToTab() {

@@ -12,11 +12,11 @@ import { StorageService } from "./storage.service";
 })
 export class GlobalService {
   // base_url = 'http://localhost/Tokomobile-admin/public/api/';
-  public base_url = "http://127.0.0.1:8000/api/";
+  // public base_url = "http://127.0.0.1:8000/api/";
   public appname = "Posbill";
   // public domain = "https://app.posbill.id/";
   public domain = "http://127.0.0.1:8000/";
-  // public base_url = "http://127.0.0.1:8000/api/";
+  public base_url = "http://127.0.0.1:8000/api/";
   public basic_key =
     "6EDE2F267F8A7439B62CAA95A56A25D47B05E16B0D9FEC79676DD0E7E96E884A";
   public topicName = "posbill";
@@ -27,7 +27,7 @@ export class GlobalService {
     private toastController: ToastController,
     private storage: StorageService
   ) {
-    // this.base_url = this.domain + "api/";
+    this.base_url = this.domain + "api/";
   }
 
   getHeader() {

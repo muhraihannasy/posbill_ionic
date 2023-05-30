@@ -89,7 +89,7 @@
   <ion-slides pager="true" [options]="slideOpts">
     <ion-slide
       *ngFor="let item of informations"
-      [routerLink]="['/information-detail/4daf2177-a4ce-411e-8485-47f53395c51b']"
+      [routerLink]="['/information-detail/' + item.id]"
     >
       <img src="{{ baseUrl + item.image}}" />
     </ion-slide>
