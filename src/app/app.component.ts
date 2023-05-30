@@ -7,6 +7,7 @@ import { StatusBar } from "@ionic-native/status-bar/ngx";
 import { Router } from "@angular/router";
 import { BackButtonEvent } from "@ionic/core";
 import { Plugins } from "@capacitor/core";
+import { FcmService } from "./fcm.service";
 const { App } = Plugins;
 
 @Component({
@@ -20,7 +21,8 @@ export class AppComponent {
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,
     private router: Router,
-    private location: Location
+    private location: Location,
+    private fcmService: FcmService
   ) {
     this.initializeApp();
     this.registerBackButton();
@@ -117,6 +119,8 @@ export class AppComponent {
       }
 
       console.log(this.router.url);
+
+      this.fcmService.initPush();
     });
   }
 }
