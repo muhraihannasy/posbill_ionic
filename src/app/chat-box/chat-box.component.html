@@ -1,0 +1,23 @@
+<ion-item
+  lines="none"
+  [class]="chat?.sender != current_user_id ? 'sender' : 'user'"
+>
+  <div
+    [slot]="chat?.sender == current_user_id ? 'end' : 'start'"
+    class="ion-text-wrap"
+  >
+    <div slot="end" class="detail-info">
+      <!-- <small>{{ chat?.createdAt?.toDate() | date : "HH:mm" }}</small> -->
+      <small>{{ chat?.sender != current_user_id ? "Admin" : "Saya" }}</small>
+      <small>10:00 AM</small>
+    </div>
+
+    <div
+      [class]="
+        chat?.sender != current_user_id ? 'chat-box sender' : 'chat-box user'
+      "
+    >
+      <ion-text>{{ chat?.message }}</ion-text>
+    </div>
+  </div>
+</ion-item>

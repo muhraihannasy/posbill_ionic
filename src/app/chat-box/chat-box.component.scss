@@ -1,0 +1,25 @@
+@import url("../../theme/variables.scss");
+
+.chat-box {
+  padding: 0.8em;
+  margin-bottom: 1em;
+}
+
+.chat-box.user {
+  border-radius: 0.9em 0.9em 0.5em 0.9em;
+  background: #c8e0f1;
+}
+
+.chat-box.sender {
+  border-radius: 0.9em 0.9em 0.9em 0.5em;
+  background: #e586c9;
+}
+
+.detail-info {
+  display: flex;
+  align-items: center;
+  gap: 0.2em;
+  width: max-content;
+  margin-left: auto;
+  margin-bottom: 0.5em;
+}

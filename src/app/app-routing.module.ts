@@ -391,7 +391,15 @@ const routes: Routes = [
       import("./information-detail/information-detail.module").then(
         (m) => m.InformationDetailPageModule
       ),
+  },  {
+    path: 'chat',
+    loadChildren: () => import('./chat/chat.module').then( m => m.ChatPageModule)
   },
+  {
+    path: 'chat-room',
+    loadChildren: () => import('./chat-room/chat-room.module').then( m => m.ChatRoomPageModule)
+  },
+
 ];
 @NgModule({
   imports: [

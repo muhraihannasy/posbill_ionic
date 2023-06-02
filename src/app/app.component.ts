@@ -32,6 +32,7 @@ export class AppComponent {
     this.platform.ready().then(() => {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
+      this.fcmService.initPush();
     });
   }
 
@@ -119,8 +120,6 @@ export class AppComponent {
       }
 
       console.log(this.router.url);
-
-      this.fcmService.initPush();
     });
   }
 }

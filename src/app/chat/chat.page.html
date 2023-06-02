@@ -1,0 +1,38 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>chat</ion-title>
+    <ion-buttons slot="end">
+      <ion-button fill="clear" id="popover" (click)="showPopover($event)">
+        <ion-icon name="ellipsis-vertical-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item detail style="cursor: pointer">
+      <ion-avatar slot="start">
+        <img
+          src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y"
+        />
+      </ion-avatar>
+      <ion-label>
+        <h2>Lorem ipsum</h2>
+        <p>dolor sit amet</p>
+      </ion-label>
+    </ion-item>
+    <ion-item detail style="cursor: pointer">
+      <ion-avatar slot="start">
+        <img
+          src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y"
+        />
+      </ion-avatar>
+      <ion-label>
+        <h2>Lorem ipsum</h2>
+        <p>dolor sit amet</p>
+      </ion-label>
+      <ion-text slot="end" color="medium">10:00 AM</ion-text>
+    </ion-item>
+  </ion-list>
+</ion-content>

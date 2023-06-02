@@ -1,10 +1,50 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>help-chat</ion-title>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-button fill="clear" id="popover" (click)="showPopover($event)">
+        <ion-icon name="arrow-back-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+
+    <ion-title>Admin Posbill</ion-title>
+    <ion-buttons slot="end">
+      <ion-button fill="clear" id="popover" (click)="showPopover($event)">
+        <ion-icon name="ellipsis-vertical-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-
-
+  <ion-list lines="none" *ngIf="(chats) as chat$">
+    <ion-item-group class="chats-group" *ngFor="let chat of chat$">
+      <app-chat-box
+        [chat]="chat"
+        [current_user_id]="currentUserId"
+      ></app-chat-box>
+    </ion-item-group>
+  </ion-list>
 </ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <div class="wrapper-footer">
+      <div class="input">
+        <input type="text" class="input-message" />
+
+        <div class="attachments">
+          <div class="attach">
+            <ion-icon name="attach-outline"></ion-icon>
+          </div>
+          <div class="attach" (click)="takePicture()">
+            <ion-icon name="camera-outline"></ion-icon>
+          </div>
+        </div>
+      </div>
+
+      <ion-button>
+        <ion-icon name="send"></ion-icon>
+      </ion-button>
+    </div>
+  </ion-toolbar>
+</ion-footer>

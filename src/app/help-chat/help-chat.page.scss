@@ -1,0 +1,48 @@
+.input-message {
+  border: none;
+  background: transparent;
+}
+
+.input-message:focus {
+  outline: none;
+}
+
+.wrapper-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1em;
+  padding: 0 1em;
+}
+
+.wrapper-footer .input {
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: 1.5em;
+  overflow: hidden;
+  padding: 0.6em;
+  background-color: #f0f0f0;
+}
+.wrapper-footer .input input {
+  width: 90%;
+}
+
+.wrapper-footer .input .attachments {
+  display: flex;
+  align-items: center;
+  gap: 0.4em;
+  padding-right: 0.4em;
+}
+
+.wrapper-footer .input .attachments .attach {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4em;
+}
+
+ion-button {
+}

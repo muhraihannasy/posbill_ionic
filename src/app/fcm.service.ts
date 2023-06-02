@@ -1,3 +1,4 @@
+import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 
 import { Router } from "@angular/router";
@@ -9,6 +10,8 @@ import {
   PushNotificationActionPerformed,
   Capacitor,
 } from "@capacitor/core";
+import { GlobalService } from "./global.service";
+import { NotificationService } from "./notification.service";
 
 const { PushNotifications } = Plugins;
 
@@ -16,7 +19,12 @@ const { PushNotifications } = Plugins;
   providedIn: "root",
 })
 export class FcmService {
-  constructor(private router: Router) {}
+  constructor(
+    private router: Router,
+    private http: HttpClient,
+    private global: GlobalService,
+    private notification: NotificationService
+  ) {}
 
   // Request permission to use push notifications
   // iOS will prompt user and return if they granted permission or not
@@ -39,7 +47,26 @@ export class FcmService {
     PushNotifications.addListener(
       "registration",
       (token: PushNotificationToken) => {
-        alert("Push registration success, token: " + token.value);
+        var reqHeader = new HttpHeaders({
+          "Content-Type": "application/json",
+        });
+
+        let options = { headers: reqHeader };
+
+        let postData = {
+          token: token.value,
+        };
+
+        this.http
+          .post(this.global.base_url + "auth/fcm/add", postData, options)
+          .subscribe(
+            (data: any) => {
+              console.log(data);
+            },
+            (error) => {
+              console.log(error);
+            }
+          );
       }
     );
 
@@ -50,7 +77,9 @@ export class FcmService {
     PushNotifications.addListener(
       "pushNotificationReceived",
       (notification: PushNotification) => {
-        alert("Push received: " + JSON.stringify(notification));
+        const header = "Header";
+        const message = "<strong>Ada Pesanan Nich</strong>";
+        this.notification.showNotification(header, message);
       }
     );
 
