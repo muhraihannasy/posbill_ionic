@@ -1475,7 +1475,7 @@
   dependencies:
     "@types/cordova" "latest"
 
-"@ionic-native/file-transfer@^5.31.1":
+"@ionic-native/file-transfer@^5.36.0":
   "integrity" "sha512-n4kwLiPMCGvLwNDaj66Va8NWvflRJzk69RBWQSAUmQ6Hf2gE87NxLCvuvH9YRwFbFcBgEciGWzlEiacVLxx9mg=="
   "resolved" "https://registry.npmjs.org/@ionic-native/file-transfer/-/file-transfer-5.36.0.tgz"
   "version" "5.36.0"

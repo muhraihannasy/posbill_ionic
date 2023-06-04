@@ -1,9 +1,10 @@
 import { Component, OnInit } from "@angular/core";
 import { PopoverController } from "@ionic/angular";
-import { Filesystem } from "@capacitor/filesystem";
+import { File } from "@ionic-native/file/ngx";
 
 import { Plugins, CameraResultType } from "@capacitor/core";
 const { Camera } = Plugins;
+const { Storage } = Plugins;
 import { finalize, map } from "rxjs/operators";
 
 import { PopoverChatComponent } from "../popover-chat/popover-chat.component";
@@ -18,7 +19,9 @@ import { AngularFireDatabase } from "@angular/fire/database";
 import { AngularFireStorage } from "@angular/fire/storage";
 
 import { type } from "os";
-
+interface MyObject {
+  id: any;
+}
 @Component({
   selector: "app-help-chat",
   templateUrl: "./help-chat.page.html",
@@ -37,6 +40,9 @@ export class HelpChatPage implements OnInit {
   uploadProgress: number;
   downloadURL: string;
 
+  mode: any = "normal";
+  imageCameraPath: any = "";
+
   constructor(
     private popoverController: PopoverController,
     private http: HttpClient,
@@ -49,10 +55,9 @@ export class HelpChatPage implements OnInit {
 
   ngOnInit() {
     this.storage.getObject("user").then((data) => {
-      const id = data?.id;
+      const id = data.id;
       this.currentUserId = id;
       this.createRoom(id);
-
       this.db
         .list(`/dialog/${id}/messages`)
         .query.orderByChild("timestamp")
@@ -62,7 +67,6 @@ export class HelpChatPage implements OnInit {
           snapshot.forEach((childSnapshot) => {
             coba.push(childSnapshot.val());
           });
-
           this.messages = coba;
         });
     });
@@ -94,8 +98,14 @@ export class HelpChatPage implements OnInit {
 
   onFileSelected(files: FileList) {
     this.selectedFile = files.item(0);
-    if (files.item(0).type == "image/png") {
+    if (
+      files.item(0).type == "image/png" ||
+      files.item(0).type == "image/jpg" ||
+      files.item(0).type == "image/jpeg"
+    ) {
       this.typeMessage = "image";
+      console.log(files.item(0));
+
       return;
     }
 
@@ -115,7 +125,31 @@ export class HelpChatPage implements OnInit {
     });
 
     const imageUrl = image.webPath;
-    console.log(imageUrl);
+
+    const response = await fetch(imageUrl);
+    const blob = await response.blob();
+
+    this.selectedFile = blob;
+
+    this.mode = "camera";
+    this.typeMessage = "image";
+  }
+
+  uploadImage(fileUri) {
+    const filePath = `attachments/${uuidv4()}`;
+    const fileRef = this.storageFirebase.ref(filePath);
+    const uploadTask = fileRef.putString(fileUri, "data_url");
+
+    uploadTask.snapshotChanges().subscribe((snapshot) => {
+      // Tindakan setelah pengunggahan berhasil
+      // Misalnya, mendapatkan URL unduhan gambar
+      if (snapshot.state === "success") {
+        fileRef.getDownloadURL().subscribe((downloadURL) => {
+          console.log("URL unduhan:", downloadURL);
+          // Lakukan tindakan yang diperlukan dengan URL unduhan
+        });
+      }
+    });
   }
 
   sendMessage() {
@@ -137,8 +171,9 @@ export class HelpChatPage implements OnInit {
       this.chat.createMessage(data, this.currentUserId, uuid);
       return;
     }
+
     if (this.selectedFile) {
-      const filePath = `attachments/${uuidv4()}_${this.selectedFile.name}`;
+      const filePath = `attachments/${uuidv4()}`;
       const fileRef = this.storageFirebase.ref(filePath);
       const uploadTask = this.storageFirebase.upload(
         filePath,

@@ -14,7 +14,7 @@ export class StorageService {
     await Storage.set({ key, value });
   }
 
-  async getString(key: string): Promise<{ value: any }> {
+  async getString(key: string): Promise<any> {
     return await Storage.get({ key });
   }
 
@@ -22,7 +22,7 @@ export class StorageService {
     await Storage.set({ key, value: JSON.stringify(value) });
   }
 
-  async getObject(key: string): Promise<{ value: any }> {
+  async getObject(key: string): Promise<any> {
     const ret = await Storage.get({ key });
     return JSON.parse(ret.value);
   }
