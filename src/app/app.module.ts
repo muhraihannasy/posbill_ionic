@@ -2,6 +2,10 @@ import { NgModule } from "@angular/core";
 import { BrowserModule } from "@angular/platform-browser";
 import { RouteReuseStrategy } from "@angular/router";
 
+import { AngularFireModule } from "@angular/fire";
+import { AngularFirestoreModule } from "@angular/fire/firestore";
+import { AngularFireDatabaseModule } from "@angular/fire/database";
+
 import { IonicModule, IonicRouteStrategy } from "@ionic/angular";
 import { SplashScreen } from "@ionic-native/splash-screen/ngx";
 import { StatusBar } from "@ionic-native/status-bar/ngx";
@@ -34,6 +38,8 @@ import { NgxQRCodeModule } from "@techiediaries/ngx-qrcode";
 import { NativeAudio } from "@ionic-native/native-audio/ngx";
 // import { PDFGenerator } from '@ionic-native/pdf-generator';
 import { Clipboard } from "@ionic-native/clipboard/ngx";
+import { environment } from "src/environments/environment";
+import { AngularFireStorageModule } from "@angular/fire/storage";
 
 @NgModule({
   declarations: [AppComponent],
@@ -45,6 +51,10 @@ import { Clipboard } from "@ionic-native/clipboard/ngx";
     HttpClientModule,
     Ng2GoogleChartsModule,
     NgxQRCodeModule,
+    AngularFireModule.initializeApp(environment.firebaseConfig),
+    AngularFirestoreModule,
+    AngularFireDatabaseModule,
+    AngularFireStorageModule,
   ],
   providers: [
     StatusBar,

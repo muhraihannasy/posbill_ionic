@@ -12,7 +12,6 @@
   align-items: center;
   justify-content: space-between;
   gap: 1em;
-  padding: 0 1em;
 }
 
 .wrapper-footer .input {
@@ -44,5 +43,18 @@
   font-size: 1.4em;
 }
 
-ion-button {
+ion-footer .px-2 {
+  padding: 1em 1em;
+}
+
+ion-footer .preview {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 3em;
+  height: 3em;
+  background: grey;
+  margin-bottom: 0.5em;
+  border-radius: 10px;
+  font-size: 2em;
 }

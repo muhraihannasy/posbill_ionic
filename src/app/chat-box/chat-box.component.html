@@ -1,23 +1,51 @@
 <ion-item
   lines="none"
-  [class]="chat?.sender != current_user_id ? 'sender' : 'user'"
+  [class]="chat?.sender_type != 'user' ? 'sender' : 'user'"
 >
   <div
-    [slot]="chat?.sender == current_user_id ? 'end' : 'start'"
+    [slot]="chat?.sender_type == 'user' ? 'end' : 'start'"
     class="ion-text-wrap"
   >
     <div slot="end" class="detail-info">
       <!-- <small>{{ chat?.createdAt?.toDate() | date : "HH:mm" }}</small> -->
-      <small>{{ chat?.sender != current_user_id ? "Admin" : "Saya" }}</small>
+      <small>{{ chat?.sender_type == "user" ? "Saya" : "Admin" }}</small>
       <small>10:00 AM</small>
     </div>
 
     <div
       [class]="
-        chat?.sender != current_user_id ? 'chat-box sender' : 'chat-box user'
+        chat?.sender_type != 'user' ? 'chat-box sender' : 'chat-box user'
       "
+      *ngIf="chat?.type == 'text'"
     >
-      <ion-text>{{ chat?.message }}</ion-text>
+      <ion-text>{{ chat?.body }}</ion-text>
+    </div>
+    <div
+      [class]="
+        chat?.sender_type != 'user' ? 'chat-box sender' : 'chat-box user'
+      "
+      *ngIf="chat?.type == 'file'"
+    >
+      <div class="chat-file">
+        <div class="icon">
+          <ion-icon name="document-outline"></ion-icon>
+          <h2>File</h2>
+        </div>
+        <ion-button>
+          <ion-text>Download</ion-text>
+        </ion-button>
+      </div>
+    </div>
+    <div
+      [class]="
+        chat?.sender_type != 'user' ? 'chat-box sender' : 'chat-box user'
+      "
+      *ngIf="chat?.type == 'image'"
+    >
+      <img [src]="chat?.body" alt="" class="chat-image" />
+      <ion-button>
+        <ion-text>Download</ion-text>
+      </ion-button>
     </div>
   </div>
 </ion-item>

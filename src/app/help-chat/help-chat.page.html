@@ -16,10 +16,10 @@
 </ion-header>
 
 <ion-content>
-  <ion-list lines="none" *ngIf="(chats) as chat$">
-    <ion-item-group class="chats-group" *ngFor="let chat of chat$">
+  <ion-list lines="none" *ngIf="messages">
+    <ion-item-group class="chats-group" *ngFor="let message of messages">
       <app-chat-box
-        [chat]="chat"
+        [chat]="message"
         [current_user_id]="currentUserId"
       ></app-chat-box>
     </ion-item-group>
@@ -27,13 +27,14 @@
 </ion-content>
 
 <ion-footer>
-  <ion-toolbar>
+  <ion-toolbar class="px-2">
     <div class="wrapper-footer">
-      <div class="input">
-        <input type="text" class="input-message" />
+      <div class="input" *ngIf="typeMessage == 'message' ">
+        <input type="text" class="input-message" [(ngModel)]="message" />
 
         <div class="attachments">
           <div class="attach">
+            <input type="file" (change)="onFileSelected($event.target.files)" />
             <ion-icon name="attach-outline"></ion-icon>
           </div>
           <div class="attach" (click)="takePicture()">
@@ -42,7 +43,21 @@
         </div>
       </div>
 
-      <ion-button>
+      <div class="preview" *ngIf="typeMessage == 'file'">
+        <ion-icon
+          name="close-circle-outline"
+          (click)="onClosePreview()"
+        ></ion-icon>
+      </div>
+
+      <div class="preview" *ngIf="typeMessage == 'image'">
+        <ion-icon
+          name="close-circle-outline"
+          (click)="onClosePreview()"
+        ></ion-icon>
+      </div>
+
+      <ion-button (click)="sendMessage()">
         <ion-icon name="send"></ion-icon>
       </ion-button>
     </div>

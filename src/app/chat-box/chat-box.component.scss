@@ -20,6 +20,33 @@
   align-items: center;
   gap: 0.2em;
   width: max-content;
-  margin-left: auto;
   margin-bottom: 0.5em;
+}
+
+.user .detail-info {
+  margin-left: auto;
+}
+
+.chat-box .chat-image {
+  max-width: 90%;
+}
+
+.chat-box .chat-image ion-button {
+  margin-top: 1em;
+}
+
+.chat-box .chat-file ion-button {
+  width: 100%;
+  margin-top: 1em;
+}
+
+.chat-box .chat-file .icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 6em;
+  height: 6em;
+  background-color: grey;
+  border-radius: 10px;
+  font-size: 1.6em;
 }
