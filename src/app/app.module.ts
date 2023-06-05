@@ -21,6 +21,7 @@ import { BluetoothSerial } from "@ionic-native/bluetooth-serial/ngx";
 
 import { NativePageTransitions } from "@ionic-native/native-page-transitions/ngx";
 import { Ng2GoogleChartsModule } from "ng2-google-charts";
+import { ImageViewerModule } from "ngx-image-viewer";
 
 import {
   FileTransfer,
@@ -62,7 +63,6 @@ import { AngularFireStorageModule } from "@angular/fire/storage";
     Printer,
     BluetoothSerial,
     NativePageTransitions,
-    FileTransfer,
     FileTransferObject,
     File,
     GooglePlus,
@@ -70,6 +70,7 @@ import { AngularFireStorageModule } from "@angular/fire/storage";
     Base64ToGallery,
     NativeAudio,
     Clipboard,
+    FileTransfer,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
   ],
   bootstrap: [AppComponent],

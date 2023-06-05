@@ -1,8 +1,13 @@
 @import url("../../theme/variables.scss");
 
 .chat-box {
-  padding: 0.8em;
+  padding: 1em;
   margin-bottom: 1em;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
 }
 
 .chat-box.user {
@@ -18,6 +23,7 @@
 .detail-info {
   display: flex;
   align-items: center;
+
   gap: 0.2em;
   width: max-content;
   margin-bottom: 0.5em;
@@ -28,16 +34,17 @@
 }
 
 .chat-box .chat-image {
-  max-width: 90%;
+  // max-width: 90%;
+  border-radius: 10px;
 }
 
 .chat-box .chat-image ion-button {
-  margin-top: 1em;
+  margin-top: 1.5em;
 }
 
 .chat-box .chat-file ion-button {
   width: 100%;
-  margin-top: 1em;
+  margin-top: 1.5em;
 }
 
 .chat-box .chat-file .icon {

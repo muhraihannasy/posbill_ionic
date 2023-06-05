@@ -1,7 +1,7 @@
 <ion-header>
   <ion-toolbar color="primary">
     <ion-buttons slot="start">
-      <ion-button fill="clear" id="popover" (click)="showPopover($event)">
+      <ion-button fill="clear" id="popover" (click)="backButton()">
         <ion-icon name="arrow-back-outline"></ion-icon>
       </ion-button>
     </ion-buttons>
@@ -33,7 +33,7 @@
         <input type="text" class="input-message" [(ngModel)]="message" />
 
         <div class="attachments">
-          <div class="attach">
+          <div class="attach attach-file">
             <input type="file" (change)="onFileSelected($event.target.files)" />
             <ion-icon name="attach-outline"></ion-icon>
           </div>
@@ -50,7 +50,11 @@
         ></ion-icon>
       </div>
 
-      <div class="preview" *ngIf="typeMessage == 'image'">
+      <div
+        class="preview"
+        *ngIf="typeMessage == 'image'"
+        [style.background-image]="'url(' + previewImageChat + ')'"
+      >
         <ion-icon
           name="close-circle-outline"
           (click)="onClosePreview()"

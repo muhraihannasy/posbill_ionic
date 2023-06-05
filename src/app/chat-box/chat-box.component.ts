@@ -1,5 +1,9 @@
+import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Component, Input, OnInit } from "@angular/core";
-declare var cordova: any;
+import { AngularFireStorage } from "@angular/fire/storage";
+import { GlobalService } from "../global.service";
+import { ModalController } from "@ionic/angular";
+import { ImageModalComponentComponent } from "../image-modal-component/image-modal-component.component";
 
 @Component({
   selector: "app-chat-box",
@@ -10,26 +14,26 @@ export class ChatBoxComponent implements OnInit {
   @Input() chat: any;
   @Input() current_user_id: any;
 
-  constructor() {}
+  constructor(private modalController: ModalController) {}
 
   ngOnInit() {}
 
-  downloadFile(url) {
-    const fileTransfer = new cordova.plugins.FileTransfer();
-    const fileUrl = url;
-    const targetDirectory = cordova.file.externalRootDirectory + "Download/";
-    const timestamp = new Date().getTime();
-    const targetPath = targetDirectory + timestamp;
-
-    fileTransfer.download(
-      fileUrl,
-      targetPath,
-      (entry) => {
-        console.log("File downlopaded at:", entry.toURL());
+  async openImageModal(imageUrl: string) {
+    const modal = await this.modalController.create({
+      component: ImageModalComponentComponent,
+      componentProps: {
+        title: "Image Preview",
+        imageUrl: imageUrl,
       },
-      (error) => {
-        console.error("Error downloading file:", error);
-      }
-    );
+    });
+
+    return await modal.present();
+  }
+
+  getFormattedTime(time) {
+    const date = new Date(time);
+    const hours = date.getHours().toString().padStart(2, "0");
+    const minutes = date.getMinutes().toString().padStart(2, "0");
+    return hours + ":" + minutes;
   }
 }

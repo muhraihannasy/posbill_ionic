@@ -170,7 +170,7 @@
     "universal-analytics" "0.4.20"
     "uuid" "8.1.0"
 
-"@angular/common@*", "@angular/common@^9.0.0 || ^10.0.0", "@angular/common@>=6.0.0 || <=10.0.0", "@angular/common@~10.0.0", "@angular/common@10.0.14":
+"@angular/common@*", "@angular/common@^9.0.0 || ^10.0.0", "@angular/common@>= 2.0.0", "@angular/common@>=6.0.0 || <=10.0.0", "@angular/common@~10.0.0", "@angular/common@10.0.14":
   "integrity" "sha512-EOAuaMt2HwJF3DtIJ/ksHtnF8Pqh5K2rWISYLEs9R3WNaSGn74kbCODAT4pNhI8P22Ykl3H4FmQUgnDZ3uDAUg=="
   "resolved" "https://registry.npmjs.org/@angular/common/-/common-10.0.14.tgz"
   "version" "10.0.14"
@@ -208,7 +208,7 @@
   "resolved" "https://registry.npmjs.org/@angular/compiler/-/compiler-9.0.0.tgz"
   "version" "9.0.0"
 
-"@angular/core@*", "@angular/core@^9.0.0 || ^10.0.0", "@angular/core@>=6.0.0 || <=10.0.0", "@angular/core@>=8.2.7", "@angular/core@~10.0.0", "@angular/core@10.0.14":
+"@angular/core@*", "@angular/core@^9.0.0 || ^10.0.0", "@angular/core@>= 2.0.0", "@angular/core@>=6.0.0 || <=10.0.0", "@angular/core@>=8.2.7", "@angular/core@~10.0.0", "@angular/core@10.0.14":
   "integrity" "sha512-m+c9g6fA/gE+6K7It01b6r8TEmbuFjUZajQ9gG/pzist0mTBcqfvn0O4h5X+ebnSgw/bbnnp+4PbaXEi1pOWZQ=="
   "resolved" "https://registry.npmjs.org/@angular/core/-/core-10.0.14.tgz"
   "version" "10.0.14"
@@ -7835,6 +7835,13 @@
   dependencies:
     "tslib" "^1.9.0"
 
+"ngx-image-viewer@^1.0.13":
+  "integrity" "sha512-y5SdAIO6RihThFF61ZVR4ty523DHF9BgR0oyWNf5IGcVxmb9Nk3SbRDrP7VOeZ5pT8WU7qXWwA2fZ8/ynnX1gA=="
+  "resolved" "https://registry.npmjs.org/ngx-image-viewer/-/ngx-image-viewer-1.0.13.tgz"
+  "version" "1.0.13"
+  dependencies:
+    "screenfull" "^3.3.2"
+
 "nice-try@^1.0.4":
   "integrity" "sha512-1nh45deeb5olNY7eX82BkPO7SSxR5SSYJiPTrTdFUVYwAl8CKMA5N9PjTYkHiRjisVcxcQ1HXdLhx2qxxJzLNQ=="
   "resolved" "https://registry.npmjs.org/nice-try/-/nice-try-1.0.5.tgz"
@@ -9863,6 +9870,11 @@
     "@types/json-schema" "^7.0.8"
     "ajv" "^6.12.5"
     "ajv-keywords" "^3.5.2"
+
+"screenfull@^3.3.2":
+  "integrity" "sha512-DzYUuXr+OV2BDvYXaYzlYgJd4WXZZ2CW5NFC7Kw6TUCpzXJAx4MwlVD6CH+Mu6fi8rfAQIQfqdFZ4jtDsEkWig=="
+  "resolved" "https://registry.npmjs.org/screenfull/-/screenfull-3.3.3.tgz"
+  "version" "3.3.3"
 
 "select-hose@^2.0.0":
   "integrity" "sha512-mEugaLK+YfkijB4fx0e6kImuJdCIt2LxCRcbEYPqRGCs4F2ogyfZU5IAZRdjCP8JPq2AtdNoC/Dux63d9Kiryg=="

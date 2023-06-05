@@ -9,7 +9,7 @@
     <div slot="end" class="detail-info">
       <!-- <small>{{ chat?.createdAt?.toDate() | date : "HH:mm" }}</small> -->
       <small>{{ chat?.sender_type == "user" ? "Saya" : "Admin" }}</small>
-      <small>10:00 AM</small>
+      <small>{{ getFormattedTime(chat?.timestamp) }}</small>
     </div>
 
     <div
@@ -31,9 +31,6 @@
           <ion-icon name="document-outline"></ion-icon>
           <h2>File</h2>
         </div>
-        <ion-button (click)="downloadFile(chat?.body)">
-          <ion-text>Download</ion-text>
-        </ion-button>
       </div>
     </div>
     <div
@@ -41,11 +38,9 @@
         chat?.sender_type != 'user' ? 'chat-box sender' : 'chat-box user'
       "
       *ngIf="chat?.type == 'image'"
+      (click)="openImageModal(chat?.body)"
     >
       <img [src]="chat?.body" alt="" class="chat-image" />
-      <ion-button (click)="downloadFile(chat?.body)">
-        <ion-text>Download</ion-text>
-      </ion-button>
     </div>
   </div>
 </ion-item>

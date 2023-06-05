@@ -1,11 +1,10 @@
 import { Component, OnInit } from "@angular/core";
 import { PopoverController } from "@ionic/angular";
-import { File } from "@ionic-native/file/ngx";
 
 import { Plugins, CameraResultType } from "@capacitor/core";
 const { Camera } = Plugins;
 const { Storage } = Plugins;
-import { finalize, map } from "rxjs/operators";
+import { finalize } from "rxjs/operators";
 
 import { PopoverChatComponent } from "../popover-chat/popover-chat.component";
 import { HttpClient } from "@angular/common/http";
@@ -18,7 +17,7 @@ import * as firebase from "firebase";
 import { AngularFireDatabase } from "@angular/fire/database";
 import { AngularFireStorage } from "@angular/fire/storage";
 
-import { type } from "os";
+import { Router } from "@angular/router";
 interface MyObject {
   id: any;
 }
@@ -39,6 +38,7 @@ export class HelpChatPage implements OnInit {
   selectedFile: any;
   uploadProgress: number;
   downloadURL: string;
+  previewImageChat: any = "";
 
   mode: any = "normal";
   imageCameraPath: any = "";
@@ -50,7 +50,8 @@ export class HelpChatPage implements OnInit {
     private storage: StorageService,
     private storageFirebase: AngularFireStorage,
     private chat: HelpChatService,
-    private db: AngularFireDatabase
+    private db: AngularFireDatabase,
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -106,6 +107,15 @@ export class HelpChatPage implements OnInit {
       this.typeMessage = "image";
       console.log(files.item(0));
 
+      const reader = new FileReader();
+
+      reader.onload = (e: any) => {
+        this.previewImageChat = e.target.result;
+        console.log(e.target.result);
+      };
+
+      reader.readAsDataURL(files.item(0));
+
       return;
     }
 
@@ -160,7 +170,7 @@ export class HelpChatPage implements OnInit {
       timestamp: firebase.database.ServerValue.TIMESTAMP,
     };
 
-    if (this.typeMessage == "message") {
+    if (this.typeMessage == "message" && this.message !== "") {
       const data = {
         ...dataMockup,
         body: this.message,
@@ -205,5 +215,9 @@ export class HelpChatPage implements OnInit {
         )
         .subscribe();
     }
+  }
+
+  backButton() {
+    this.router.navigate(["/tabs/tab-setting"]);
   }
 }
