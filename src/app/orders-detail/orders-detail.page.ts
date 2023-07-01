@@ -128,10 +128,10 @@ export class OrdersDetailPage implements OnInit {
         this.user = user;
       });
 
-      this.storage.getObject("pos_customer").then((customer: any) => {
-        this.customerPhone = customer.phone;
-        console.log(customer);
-      });
+      // this.storage.getObject("pos_customer").then((customer: any) => {
+      //   this.customerPhone = customer.phone;
+      //   console.log(customer);
+      // });
 
       this.storage.getObject("order").then((data: any) => {
         if (data != null) {

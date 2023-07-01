@@ -1,5 +1,5 @@
 import { HttpClient, HttpHeaders } from "@angular/common/http";
-import { Injectable } from "@angular/core";
+import { Injectable,  } from "@angular/core";
 
 import { Router } from "@angular/router";
 
@@ -14,27 +14,46 @@ import { GlobalService } from "./global.service";
 import { NotificationService } from "./notification.service";
 
 const { PushNotifications } = Plugins;
+import { StorageService } from "./storage.service";
+
 
 @Injectable({
   providedIn: "root",
 })
-export class FcmService {
+export class FcmService  {
   constructor(
     private router: Router,
     private http: HttpClient,
     private global: GlobalService,
-    private notification: NotificationService
-  ) {}
+    private notification: NotificationService,
+    private storage: StorageService
+    
+  ) {
+   
+        // this.router.navigate([`orders-detail/e13af9b2-4a88-4f4b-bf4e-ca16068ef69f/list`]);
+
+  }
+
+  start_date:any = "";
+  end_date:any = "";
+  activeOutlet:any = "";
 
   // Request permission to use push notifications
   // iOS will prompt user and return if they granted permission or not
   // Android will just grant without prompting
 
   public initPush() {
-    this.registerPush();
+      this.storage.getObject('user').then((user) => {
+      this.registerPush(user.id);
+      this.getActiveOutlet();
+      this.start_date = this.global.parsingDate(
+        this.global.getFullYear() + "-" + this.global.getMonth() + "-01"
+      );
+      this.end_date = this.global.getDateOnlyNow();
+  });
   }
 
-  private registerPush() {
+  private registerPush(user) {
     PushNotifications.requestPermission().then((result) => {
       if (result.granted) {
         // Register with Apple / Google to receive push via APNS/FCM
@@ -54,11 +73,12 @@ export class FcmService {
         let options = { headers: reqHeader };
 
         let postData = {
+          user_id: user,
           token: token.value,
         };
 
         this.http
-          .post(this.global.base_url + "auth/fcm/add", postData, options)
+          .post(this.global.base_url + "fcm/add/"+  token.value, postData, options)
           .subscribe(
             (data: any) => {
               console.log(data);
@@ -77,21 +97,71 @@ export class FcmService {
     PushNotifications.addListener(
       "pushNotificationReceived",
       (notification: PushNotification) => {
-        const header = "Header";
-        const message = "<strong>Ada Pesanan Nich</strong>";
+        const header = notification.title;
+        const message = notification.body;
+        
+      this.storage.getObject('auth').then((auth) => {
+          
+        var reqHeader = new HttpHeaders({
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + auth.token,
+        });
+
+        let options = { headers: reqHeader };
+
+        let postdata = {
+          outlet_id: this.activeOutlet.id,
+          start_date: this.global.parsingDate(this.start_date),
+          end_date: this.global.parsingDate(this.end_date),
+        };
+
+          this.http
+          .post(
+            this.global.base_url + "auth/order/last_per_outlet",
+            postdata,
+            options
+          )
+          .subscribe(
+            (data: any) => {
+              if (data.status == 0) {
+                this.storage.setObject("order", data.order);
+              }     
+            },
+            (error) => {
+              console.log(error);
+            }
+          );
+        })
         this.notification.showNotification(header, message);
+            this.http.get('assets/dramatic_boom_effect.mp3', { responseType: 'blob' }).subscribe((audioBlob: Blob) => {
+          const audioUrl = URL.createObjectURL(audioBlob);
+          const audio = new Audio(audioUrl);
+
+          console.log(Blob, "Blob nya nih");
+          audio.play();
+        });
       }
     );
 
     PushNotifications.addListener(
       "pushNotificationActionPerformed",
       (notification: PushNotificationActionPerformed) => {
-        const data = notification.notification.data;
+        const id = notification.notification.data.id;
+        const name = notification.notification.data.name;
+        const phone = notification.notification.data.phone;
+                
         alert("Push action performed: " + JSON.stringify(notification));
-        if (data.detailsId) {
-          this.router.navigateByUrl(`/orders-detail/${data.detailsId}/pos`);
-        }
+                this.router.navigate([`orders-detail/${id}/list`]);
       }
     );
+  }
+
+    getActiveOutlet() {
+    this.storage.getObject("outlet_active").then((data) => {
+      if (data != null) {
+        this.activeOutlet = data;
+  
+      }
+    });
   }
 }

@@ -12,9 +12,9 @@ export class NotificationService {
       header: header,
       message: message,
       buttons: buttons,
-      duration: 3000,
+      duration: 5000,
       position: "top",
-      color: "white",
+      color: "light",
       cssClass: "custom-toast",
     });
 

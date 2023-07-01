@@ -1,3 +1,6 @@
+
+
+
 import { Component } from "@angular/core";
 
 import {
@@ -253,6 +256,8 @@ export class TabDashboardPage {
           this.summary_today_items = data.summary_today_items;
           this.summary_month_price = data.summary_month_price;
           this.summary_month_items = data.summary_month_items;
+
+          console.log(data.summary_today_price, data.summary_today_items, "Summary");
         },
         (error) => {
           console.log(error);
