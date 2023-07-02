@@ -138,9 +138,9 @@ export class OrdersDetailPage implements OnInit {
           this.storageOrder = data;
           var orderIndex = this.storageOrder.findIndex((x) => x.id === this.id);
           this.order = this.storageOrder[orderIndex];
-          if (this.order.customer == null) {
-            this.order.customer = { id: "Walk-in", name: "Walk-in" };
-          }
+          // if (this.order?.customer == null) {
+          //   this.order['customer'] = { id: "Walk-in", name: "Walk-in" };
+          // }
           this.showContent = true;
 
           // content receipt
@@ -152,7 +152,7 @@ export class OrdersDetailPage implements OnInit {
           content += "Tanggal   : " + this.order.order_time + "\n";
           content += "Outlet    : " + this.outlet.name + "\n";
           content += "Kasir     : " + this.user.name + "\n";
-          content += "Pelanggan : " + this.order.customer.name + " \n";
+          content += "Pelanggan : " + this.order.customer_name + " \n";
           content += "--------------------------------\n";
 
           for (let item of this.order.order_item) {
@@ -223,7 +223,7 @@ export class OrdersDetailPage implements OnInit {
             this.order.order_time +
             ")%0a";
           contentWA += "Tipe order: " + this.order.order_type + "%0a";
-          contentWA += "Pelanggan : " + this.order.customer.name + " %0a";
+          contentWA += "Pelanggan : " + this.order.customer_name + " %0a";
           contentWA += "--------------------------------%0a";
 
           for (let item of this.order.order_item) {
@@ -282,7 +282,7 @@ export class OrdersDetailPage implements OnInit {
           printHeader += "Tanggal   : " + this.order.order_time + "\n";
           printHeader += "Outlet    : " + this.outlet.name + "\n";
           printHeader += "Kasir     : " + this.user.name + "\n";
-          printHeader += "Pelanggan : " + this.order.customer.name + " \n";
+          printHeader += "Pelanggan : " + this.order.customer_name + " \n";
           printHeader += "--------------------------------\n";
 
           this.printHeader = printHeader;

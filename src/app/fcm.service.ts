@@ -99,6 +99,7 @@ export class FcmService  {
       (notification: PushNotification) => {
         const header = notification.title;
         const message = notification.body;
+        const id = notification.data.id;
         
       this.storage.getObject('auth').then((auth) => {
           
@@ -125,6 +126,15 @@ export class FcmService  {
             (data: any) => {
               if (data.status == 0) {
                 this.storage.setObject("order", data.order);
+                console.log("Data Order", data.order);
+                this.http.get('assets/dramatic_boom_effect.mp3', { responseType: 'blob' }).subscribe((audioBlob: Blob) => {
+                      const audioUrl = URL.createObjectURL(audioBlob);
+                      const audio = new Audio(audioUrl);
+
+                      console.log(id, "id nya nih");
+                      audio.play();
+                      this.notification.showNotification(header, message, id);
+                    });
               }     
             },
             (error) => {
@@ -132,14 +142,7 @@ export class FcmService  {
             }
           );
         })
-        this.notification.showNotification(header, message);
-            this.http.get('assets/dramatic_boom_effect.mp3', { responseType: 'blob' }).subscribe((audioBlob: Blob) => {
-          const audioUrl = URL.createObjectURL(audioBlob);
-          const audio = new Audio(audioUrl);
-
-          console.log(Blob, "Blob nya nih");
-          audio.play();
-        });
+       
       }
     );
 
@@ -149,9 +152,44 @@ export class FcmService  {
         const id = notification.notification.data.id;
         const name = notification.notification.data.name;
         const phone = notification.notification.data.phone;
-                
-        alert("Push action performed: " + JSON.stringify(notification));
+
+              this.storage.getObject('auth').then((auth) => {
+          
+        var reqHeader = new HttpHeaders({
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + auth.token,
+        });
+
+        let options = { headers: reqHeader };
+
+        let postdata = {
+          outlet_id: this.activeOutlet.id,
+          start_date: this.global.parsingDate(this.start_date),
+          end_date: this.global.parsingDate(this.end_date),
+        };
+
+          this.http
+          .post(
+            this.global.base_url + "auth/order/last_per_outlet",
+            postdata,
+            options
+          )
+          .subscribe(
+            (data: any) => {
+              if (data.status == 0) {
+                this.storage.setObject("order", data.order);
+                console.log("Data Order", data.order);
+        
                 this.router.navigate([`orders-detail/${id}/list`]);
+        
+              }     
+            },
+            (error) => {
+              console.log(error);
+            }
+          );
+        })
+                
       }
     );
   }
