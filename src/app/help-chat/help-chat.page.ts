@@ -7,7 +7,7 @@ const { Storage } = Plugins;
 import { finalize } from "rxjs/operators";
 
 import { PopoverChatComponent } from "../popover-chat/popover-chat.component";
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { GlobalService } from "../global.service";
 import { StorageService } from "../storage.service";
 import { HelpChatService } from "./help-chat.service";
@@ -31,6 +31,8 @@ export class HelpChatPage implements OnInit {
   message: string = "";
   isLoading = false;
   currentUserId = 3;
+  currentUserName = "";
+  currentUserProfilePhoto = "";
 
   typeMessage: any = "message";
   messages: any = [];
@@ -42,6 +44,8 @@ export class HelpChatPage implements OnInit {
 
   mode: any = "normal";
   imageCameraPath: any = "";
+
+  auth: any = "";
 
   constructor(
     private popoverController: PopoverController,
@@ -58,7 +62,6 @@ export class HelpChatPage implements OnInit {
     this.storage.getObject("user").then((data) => {
       const id = data.id;
       this.currentUserId = id;
-      this.createRoom(id);
       this.db
         .list(`/dialog/${id}/messages`)
         .query.orderByChild("timestamp")
@@ -71,10 +74,43 @@ export class HelpChatPage implements OnInit {
           this.messages = coba;
         });
     });
+
+      this.storage.getObject('auth').then((auth) => {
+          this.auth = auth;
+
+              var reqHeader = new HttpHeaders({
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer '+ this.auth.token
+                    });
+
+                    let options = {headers: reqHeader};
+
+
+                      this.http.post(this.global.base_url+'auth/me', null, options)
+                      .subscribe((data: any) => {
+                        console.log(data);
+
+                        if(data.status == 0)
+                        {
+                          this.currentUserName = data?.name;
+                          this.currentUserProfilePhoto = data?.company?.site_logo;
+                          this.createRoom(data?.id);
+
+                        }
+
+                        this.global.loadingDismiss();
+                        }, error => {
+                        console.log(error);
+                    });
+      
+      
+        });
   }
 
   createRoom(id: any) {
     const room = {
+      photo_profile: this.currentUserProfilePhoto,
+      name: this.currentUserName,
       messages: "",
       unread: {
         admin: 0,
@@ -177,8 +213,11 @@ export class HelpChatPage implements OnInit {
         type: "text",
       };
 
+
       this.message = "";
+  
       this.chat.createMessage(data, this.currentUserId, uuid);
+      this.chat.updateUnread(this.currentUserId );
       return;
     }
 
@@ -207,6 +246,7 @@ export class HelpChatPage implements OnInit {
                 type: this.typeMessage,
               };
               this.chat.createMessage(data, this.currentUserId, uuid);
+             this.chat.updateUnread(this.currentUserId );
 
               this.selectedFile = "";
               this.onClosePreview();

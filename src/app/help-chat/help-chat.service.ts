@@ -2,6 +2,7 @@ import { Injectable } from "@angular/core";
 import { AngularFireDatabase, AngularFireList } from "@angular/fire/database";
 import { AngularFireStorage } from "@angular/fire/storage";
 import { Observable } from "rxjs";
+import { take } from "rxjs/operators";
 
 import { v4 as uuidv4 } from "uuid";
 
@@ -23,6 +24,31 @@ export class HelpChatService {
   createMessage(message: any, pathDialogId, pathMessageId): any {
     const field = `/dialog/${pathDialogId}/messages/${pathMessageId}`;
     this.checkDataAvailability(field, message);
+  }
+
+ async  updateUnread(pathDialogId) {
+    let body = {
+      admin: 0,
+      user: 0
+    };
+
+    const field = `/dialog/${pathDialogId}/unread`;
+    const unreadRef = this.db.object(field);
+    const unreadRef2 = this.db.object(field);
+      try {
+        const unread = await unreadRef.valueChanges().pipe(take(1)).toPromise();
+        body.admin = unread.admin + 1;
+        unreadRef2.set(body);
+        
+
+        console.log("body", body);
+
+        // Lanjutkan dengan logika berikutnya di sini
+        // ...
+      } catch (error) {
+        // Tangani kesalahan jika terjadi
+      }
+
   }
 
   checkDataAvailability(field, data: any) {

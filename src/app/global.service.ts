@@ -15,7 +15,7 @@ export class GlobalService {
   // public base_url = "http://127.0.0.1:8000/api/";
   public appname = "Posbill";
   // public domain = "https://app.posbill.id/";
-  public domain = "https://0b3a-103-3-221-73.ngrok-free.app/";
+  public domain = "https://app.posbill.dev/";
   public base_url = "http://127.0.0.1:8000/api/";
   public basic_key =
     "6EDE2F267F8A7439B62CAA95A56A25D47B05E16B0D9FEC79676DD0E7E96E884A";
