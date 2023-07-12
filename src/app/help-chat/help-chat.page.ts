@@ -163,6 +163,8 @@ export class HelpChatPage implements OnInit {
     this.selectedFile = "";
   }
 
+
+
   async takePicture() {
     const image = await Camera.getPhoto({
       quality: 90,

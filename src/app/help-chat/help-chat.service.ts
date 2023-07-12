@@ -36,8 +36,8 @@ export class HelpChatService {
     const unreadRef = this.db.object(field);
     const unreadRef2 = this.db.object(field);
       try {
-        const unread = await unreadRef.valueChanges().pipe(take(1)).toPromise();
-        body.admin = unread.admin + 1;
+        const unread:any = await unreadRef.valueChanges().pipe(take(1)).toPromise();
+        body.admin = unread?.admin + 1;
         unreadRef2.set(body);
         
 
