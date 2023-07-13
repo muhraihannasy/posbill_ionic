@@ -16,7 +16,7 @@
 @import "~@ionic/angular/css/normalize.css";
 @import "~@ionic/angular/css/structure.css";
 @import "~@ionic/angular/css/typography.css";
-@import '~@ionic/angular/css/display.css';
+@import "~@ionic/angular/css/display.css";
 
 /* Optional CSS utils that can be commented out */
 @import "~@ionic/angular/css/padding.css";
@@ -26,30 +26,29 @@
 @import "~@ionic/angular/css/flex-utils.css";
 
 .text-avatar {
-  margin-top:2px;
-  margin-right:10px;
-  padding:5px;
-  width:36px;
-  height:36px;
+  margin-top: 2px;
+  margin-right: 10px;
+  padding: 5px;
+  width: 36px;
+  height: 36px;
   text-align: center;
   background: #ccc;
   font-size: 120%;
   border-radius: 18px;
   padding-top: 7px;
-  
 }
 
 .text-avatar-category {
-  margin-top:2px;
-  margin-right:10px;
-  padding:5px;
-  width:36px;
-  height:36px;
+  margin-top: 2px;
+  margin-right: 10px;
+  padding: 5px;
+  width: 36px;
+  height: 36px;
   text-align: center;
   background: #333;
   font-size: 120%;
   border-radius: 18px;
-  color:#fff;
+  color: #fff;
   padding-top: 7px;
 }
 
@@ -58,13 +57,12 @@
   padding: 20px;
   background: #ccc;
   // border-radius:30px;
-
 }
 
 .text-avatar-grid {
-  padding:5px;
-  width:36px;
-  height:36px;
+  padding: 5px;
+  width: 36px;
+  height: 36px;
   text-align: center;
   background: #ccc;
   font-size: 120%;
@@ -73,12 +71,12 @@
 
 @media screen and (min-width: 720px) {
   ion-content {
-    --padding-bottom:120px;
+    --padding-bottom: 120px;
   }
 }
 
 @media screen and (max-width: 699px) {
   ion-content {
-    --padding-bottom:0px;
+    --padding-bottom: 0px;
   }
 }

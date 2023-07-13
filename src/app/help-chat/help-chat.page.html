@@ -15,7 +15,11 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<div
+  style="overflow-y: scroll; height: 100%"
+  id="scrollContainer"
+  #scrollContainer
+>
   <ion-list lines="none" *ngIf="messages">
     <ion-item-group class="chats-group" *ngFor="let message of messages">
       <app-chat-box
@@ -24,7 +28,7 @@
       ></app-chat-box>
     </ion-item-group>
   </ion-list>
-</ion-content>
+</div>
 
 <ion-footer>
   <ion-toolbar class="px-2">

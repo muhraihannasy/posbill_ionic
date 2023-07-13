@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, ElementRef, ViewChild } from "@angular/core";
 import { PopoverController } from "@ionic/angular";
 
 import { Plugins, CameraResultType } from "@capacitor/core";
@@ -27,6 +27,8 @@ interface MyObject {
   styleUrls: ["./help-chat.page.scss"],
 })
 export class HelpChatPage implements OnInit {
+  @ViewChild("scrollContainer", { static: false }) scrollContainer: ElementRef;
+
   name: string = "Sender";
   message: string = "";
   isLoading = false;
@@ -75,36 +77,52 @@ export class HelpChatPage implements OnInit {
         });
     });
 
-      this.storage.getObject('auth').then((auth) => {
-          this.auth = auth;
+    this.storage.getObject("auth").then((auth) => {
+      this.auth = auth;
 
-              var reqHeader = new HttpHeaders({
-                'Content-Type': 'application/json',
-                'Authorization': 'Bearer '+ this.auth.token
-                    });
+      var reqHeader = new HttpHeaders({
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + this.auth.token,
+      });
 
-                    let options = {headers: reqHeader};
+      let options = { headers: reqHeader };
 
+      this.http.post(this.global.base_url + "auth/me", null, options).subscribe(
+        (data: any) => {
+          console.log(data);
 
-                      this.http.post(this.global.base_url+'auth/me', null, options)
-                      .subscribe((data: any) => {
-                        console.log(data);
+          if (data.status == 0) {
+            this.currentUserName = data?.name;
+            this.currentUserProfilePhoto = data?.company?.site_logo;
+            this.createRoom(data?.id);
+          }
 
-                        if(data.status == 0)
-                        {
-                          this.currentUserName = data?.name;
-                          this.currentUserProfilePhoto = data?.company?.site_logo;
-                          this.createRoom(data?.id);
+          this.global.loadingDismiss();
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+    });
+  }
 
-                        }
+  ngAfterContentInit() {
+    this.scrollToBottom();
+  }
+  ionViewDidLoad() {
+    this.scrollToBottom();
+  }
 
-                        this.global.loadingDismiss();
-                        }, error => {
-                        console.log(error);
-                    });
-      
-      
-        });
+  ionViewDidEnter() {
+    this.scrollToBottom();
+  }
+  scrollToBottom(): void {
+    if (this.scrollContainer) {
+      const scrollContainerEl = this.scrollContainer.nativeElement;
+      scrollContainerEl.scrollTop = scrollContainerEl.scrollHeight;
+
+      console.log(scrollContainerEl.scrollHeight, "asdadasdasdasdasdasdasdsa");
+    }
   }
 
   createRoom(id: any) {
@@ -163,8 +181,6 @@ export class HelpChatPage implements OnInit {
     this.selectedFile = "";
   }
 
-
-
   async takePicture() {
     const image = await Camera.getPhoto({
       quality: 90,
@@ -215,11 +231,13 @@ export class HelpChatPage implements OnInit {
         type: "text",
       };
 
-
       this.message = "";
-  
+
       this.chat.createMessage(data, this.currentUserId, uuid);
-      this.chat.updateUnread(this.currentUserId );
+      this.chat.updateUnread(this.currentUserId);
+      setTimeout(() => {
+        this.scrollToBottom();
+      }, 500);
       return;
     }
 
@@ -248,8 +266,10 @@ export class HelpChatPage implements OnInit {
                 type: this.typeMessage,
               };
               this.chat.createMessage(data, this.currentUserId, uuid);
-             this.chat.updateUnread(this.currentUserId );
-
+              this.chat.updateUnread(this.currentUserId);
+              setTimeout(() => {
+                this.scrollToBottom();
+              }, 500);
               this.selectedFile = "";
               this.onClosePreview();
             });
